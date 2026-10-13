@@ -263,7 +263,7 @@ exec $SHELL && wtool check                         # 验收：应当说"一切�
 |---|---|---|
 | `wtool-base-tools`（安装器种子包） | `wtool-base-tools.tar.gz` | <https://github.com/allinkernel/wtool-base-tools/releases/tag/offline-2026-10-14> |
 | `shell/zsh`（按发行版编的 zsh） | `release-offline.zip` | <https://github.com/allinkernel/wtool-zsh/releases/tag/offline-2026-10-14> |
-| `tools/musl-bins/*`（上游二进制工具） | `release-offline.zip` | <https://github.com/allinkernel/wtool-musl-bins/releases/tag/offline-2026-10-14> |
+| `tools/musl-bins/*`（上游二进制工具，**一个仓库多个项目**） | **`<工具名>-release-offline.zip`**（例：`bat-release-offline.zip`、`jq-release-offline.zip`） | <https://github.com/allinkernel/wtool-musl-bins/releases/tag/offline-2026-10-14> |
 | `shell/shell-rc` | `source-offline.zip` | <https://github.com/allinkernel/wtool-shell-rc/releases/tag/offline-2026-10-14> |
 | `shell/oh-my-zsh` | `source-offline.zip` | <https://github.com/allinkernel/wtool-ohmyzsh/releases/tag/offline-2026-10-14> |
 | `terminal/tmux` | `source-offline.zip` | <https://github.com/allinkernel/wtool-tmux-config/releases/tag/offline-2026-10-14> |
@@ -322,6 +322,19 @@ A：那等于"这台机器上 wtool 装的东西全没了"，而你的 rc 里那
 **Q：为什么断网机的包还分发行版？**
 A：因为工具类项目的产物是**编**出来的，编的时候链接了那个发行版的系统库。
 拿新发行版编的去老发行版上跑会报 `GLIBC_x.xx not found`。所以按发行版下对应的包。
+
+**Q：为什么 `tools/musl-bins` 那批包叫 `bat-release-offline.zip`，别的项目就叫 `release-offline.zip`？**
+A：**一个仓库多个项目**时名字带项目名。`tools/musl-bins` 是 42 个工具住在**同一个仓库**、
+共用**同一个发布页** —— 名字要是不带工具名，42 个同名文件会互相覆盖，页面上只会剩最后一个。
+所以那一族是 `<工具名>-release-offline.zip`（一页 42 个包，想要哪个下哪个）；
+一个仓库一个项目的（`shell/zsh`、`terminal/tmux`…）名字不变。
+
+**Q：三种发行版的整机包怎么选？22.04 那份能在 24.04 上跑吗？**
+A：**按目标机器选同一发行版的最稳**，但要记住三条：
+- **22.04 那份要求最低**（只要 `GLIBC_2.34`）→ **能跑 22.04 的机器都能跑它**，拿不准就下这份；
+- **24.04 那份在 26.04 上也能跑**（两份都只要求 `GLIBC_2.38`），所以 26.04 的机器图省事
+  可以先用 24.04 那份；26.04 那份是"在 26.04 里编的"，追求原生就用它；
+- 反过来**不行**：24.04/26.04 那份拿到 22.04 上会报 `GLIBC_2.38 not found`。
 
 **Q：`source-offline.zip` 和 `release-offline.zip` 有什么区别？**
 A：前者是纯配置项目（①）的自足包，后者是工具类项目（②③）的自足包 ——
