@@ -31,7 +31,7 @@
 
 | 词 | 是什么 |
 |---|---|
-| **引擎** | `wtool` 这条命令本身。它住在 `bootstrap` 这个项目里（**不在你现在看的这个文档仓库里**），管所有"装 / 编 / 发"的动作 |
+| **引擎** | `wtool` 这条命令本身。它住在 `wtool-base-tools` 这个项目里（**不在你现在看的这个文档仓库里**），管所有"装 / 编 / 发"的动作 |
 | **项目** | 工作区里的一个目录，里面有一份 `wtool.xml`。**有它 = 这是个 wtool 项目**；没有 = 就是一堆文件，不参与 wtool。每个项目是一个独立的 Git 仓库 |
 | **工作区** | 所有这些项目拼在一起的那个目录（比如 `~/self/wtool`）。**工作区根目录本身不是 Git 仓库**，它只是它们拼在一起的地方 |
 | **影子家目录** | `~/.wtool/`。它按你的 `$HOME` 一一对应地放东西，你的 `$HOME` 里只留**软链**指过去 —— 所以卸载干净、来路清楚（第 4 节）|
@@ -179,15 +179,15 @@ wtool install --<TAB>  # 列这个命令认的开关（--dry-run / --force / --p
 ```bash
 # 从头走一遍，每一步自己决定（等价于"刚 repo sync 完"）
 docker run --rm -it --network=host -v "$PWD":/wtool:ro \
-  ubuntu:24.04 bash /wtool/bootstrap/scripts/container-raw.sh
+  ubuntu:24.04 bash /wtool/wtool-base-tools/scripts/container-raw.sh
 
 # 以一个普通用户进去（推荐：真机上你就是普通用户，sudo 才用得着）
 docker run --rm -it --network=host -v "$PWD":/wtool:ro \
-  ubuntu:24.04 bash /wtool/bootstrap/scripts/container-raw.sh --user mindul
+  ubuntu:24.04 bash /wtool/wtool-base-tools/scripts/container-raw.sh --user mindul
 
 # 或者一步到位，直接给一个装好的环境
 docker run --rm -it --network=host -v "$PWD":/wtool:ro \
-  ubuntu:24.04 bash /wtool/bootstrap/scripts/container-shell.sh
+  ubuntu:24.04 bash /wtool/wtool-base-tools/scripts/container-shell.sh
 ```
 
 （`$PWD` 换成工作区目录。）两个脚本进入时都会**自动探测宿主机代理**并接上 ——
@@ -427,7 +427,8 @@ wtool version
 
 **反过来也成立**：`~/.wtool/` 下面**不会出现你 `$HOME` 里没有的路径**。
 引擎自己用的东西都关在 `~/.wtool/` 里，**分两处**：引擎本体（自举下来的那份）
-在 `~/.wtool/bootstrap`，中转软链和临时文件在 `~/.wtool/wtool-work-dir/` ——
+在 `$WTOOL_HOME/wtool/wtool-base-tools`（默认 `~/.wtool/wtool/wtool-base-tools`），
+中转软链和临时文件在 `~/.wtool/wtool-work-dir/` ——
 后者是唯一一个故意不像家目录的目录。**状态记录**（谁装过、谁发布过）在
 `~/.local/state/wtool/`，这个位置是 XDG 标准给"状态"用的，你不会顺手把它当缓存删掉。
 
@@ -551,15 +552,15 @@ wtool install editor/astronvim_v5           # 装
 
 ```bash
 wtool                                                   # 裸跑：一行一个项目、一列一个能力
-python3 bootstrap/lib/wtool_plan.py publish-list --root .
+python3 wtool-base-tools/lib/wtool_plan.py publish-list --root .
 ```
 
 | 项目 | `prio` | 仓库 | 一句话简介 |
 |---|---|---|---|
-| `bootstrap` | 5 | [wtool-bootstrap](https://github.com/allinkernel/wtool-bootstrap) | 引擎本体：`wtool` 命令、安装/卸载机制、清单解析、发布逻辑。其他项目都靠它 |
+| `wtool-base-tools` | 5 | [wtool-base-tools](https://github.com/allinkernel/wtool-base-tools) | 引擎本体：`wtool` 命令、安装/卸载机制、清单解析、发布逻辑。其他项目都靠它 |
 | `os/ubuntu` | 5 | [wtool-os-ubuntu](https://github.com/allinkernel/wtool-os-ubuntu) | Ubuntu 上要装的系统软件包清单，以及把 apt 源换成国内镜像 |
 | `shell/oh-my-zsh` | 10 | [wtool-ohmyzsh](https://github.com/allinkernel/wtool-ohmyzsh) | oh-my-zsh 本体，带自己的定制和插件选择 |
-| `shell/zsh` | 20 | [wtool-zsh](https://github.com/allinkernel/wtool-zsh) | zsh 自身的配置和补全别名 |
+| `shell/shell-rc` | 20 | [wtool-shell-rc](https://github.com/allinkernel/wtool-shell-rc) | zsh/bash 的配置与补全别名（**纯配置**项目，2026-10-13 由 `shell/zsh` 改名） |
 | `tools/git-repo-sh-tools` | 40 | [wtool-repo](https://github.com/allinkernel/wtool-repo) | `repo` 工具（管理多仓库的那个）和它的快捷命令 |
 | `tools/android_repack` | 45 | [wtool-android_repack](https://github.com/allinkernel/wtool-android_repack) | Android 镜像"解包 → 改 → 重新打包"的流水线（**私有仓**） |
 | `tools/dsh-remote` | 47 | [wtool-dsh-remote](https://github.com/allinkernel/wtool-dsh-remote) | 不在电脑前时用手机接管会话 |
@@ -576,7 +577,7 @@ python3 bootstrap/lib/wtool_plan.py publish-list --root .
 
 | 仓库 | 为什么不是 |
 |---|---|
-| [`wtool`](https://github.com/allinkernel/wtool) —— 你现在看的这份文档 | 纯文档，没有任何"装上去"的东西 |
+| [`wtool-doc`](https://github.com/allinkernel/wtool-doc) —— 你现在看的这份文档 | 纯文档，没有任何"装上去"的东西 |
 | [`wtool-astronvim_v5_config`](https://github.com/allinkernel/wtool-astronvim_v5_config) | 它是 `editor/astronvim_v5` 那套环境的一部分，跟着那套一起发 |
 | [`neovim`](https://github.com/neovim/neovim) | 上游仓库，我们既没权限推、也不能往里塞文件 |
 | [`typora-LightMindTheme`](https://github.com/allinkernel/typora-LightMindTheme) | Typora 主题，只有素材和样式文件 |
@@ -632,7 +633,7 @@ python3 bootstrap/lib/wtool_plan.py publish-list --root .
 ┌─────────────────────────┬──────┬────────┬────────┬────────┬──────────┬──────────┬────────┬────────┬────────┬──────────┬──────────┬──────────┐
 │ 项目                    │ prio │  构建  │  安装  │  卸载  │ sudo安装 │ sudo卸载 │ 做gz包 │ 发布包 │ 下gz包 │ 解容器层 │ 推容器层 │ 拉容器层 │
 ├─────────────────────────┼──────┼────────┼────────┼────────┼──────────┼──────────┼────────┼────────┼────────┼──────────┼──────────┼──────────┤
-│ bootstrap               │ 5    │ 不支持 │ 已完成 │ 可执行 │ 不支持   │ 不支持   │ 已完成 │ 已完成 │ 可执行 │ 不支持   │ 不支持   │ 不支持   │
+│ wtool-base-tools        │ 5    │ 不支持 │ 已完成 │ 可执行 │ 不支持   │ 不支持   │ 已完成 │ 已完成 │ 可执行 │ 不支持   │ 不支持   │ 不支持   │
 │ os/ubuntu               │ 5    │ 不支持 │ 不支持 │ 不支持 │ 可执行   │ 未安装   │ 已完成 │ 已完成 │ 可执行 │ 不支持   │ 不支持   │ 不支持   │
 │ shell/oh-my-zsh         │ 10   │ 不支持 │ 已完成 │ 可执行 │ 不支持   │ 不支持   │ 已完成 │ 已完成 │ 可执行 │ 不支持   │ 不支持   │ 不支持   │
 │ …（其余项目省略）        │      │        │        │        │          │          │        │        │        │          │          │          │
@@ -748,7 +749,8 @@ terminal/tmux/
 
 **`wtool`: command not found**
 
-引擎挂在 `~/.wtool/bootstrap`，靠 shell 托管块加进 `PATH`（Tab 补全也挂在同一个块上）。
+引擎挂在 `$WTOOL_HOME/wtool/wtool-base-tools`（默认 `~/.wtool/wtool/wtool-base-tools`），
+靠 shell 托管块加进 `PATH`（Tab 补全也挂在同一个块上）。
 重开一个终端，或者：
 
 ```bash
@@ -759,7 +761,7 @@ exec $SHELL        # bash / zsh 都行
 
 补全要**新开的 shell** 才读得到。还不行就确认两件事：`wtool version` 能不能敲、
 这个 shell 是不是 bash / zsh（补全只做了这两份）。能敲命令、Tab 还是补文件名的话，
-跑一次 `wtool install bootstrap --force` 再重开 shell。
+跑一次 `wtool install wtool-base-tools --force` 再重开 shell。
 
 **`wtool` 报"不是 git 仓库"或"有未提交改动"**
 

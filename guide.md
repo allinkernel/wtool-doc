@@ -17,9 +17,9 @@
 
 ```
 wtool/                          整个集合的根目录
-├── bootstrap/                  引擎自己也是一个项目
+├── wtool-base-tools/           引擎自己也是一个项目
 ├── os/ubuntu/                  按系统分的项目
-├── shell/zsh/
+├── shell/shell-rc/
 ├── terminal/tmux/
 ├── editor/astronvim_v5/        可以嵌套：这个目录下面还有两个独立项目
 │   ├── astronvim_v5_config/
@@ -76,7 +76,7 @@ terminal/tmux/
 | `<sudo-install …>` | 系统层：装 apt 包 / 写 `/etc` 下的文件 / 跑脚本（不可逆，要 sudo） | 否 |
 | `<publish kind>` | 怎么发布到 GitHub Release | —— |
 
-另外还有 `<source>`（上游源码：clone → 固定 ref → 铺 overlay）和 `<build kind=…>`（本地编还是容器分层编）这些，用到时再看对应项目的 `wtool.xml` 与 `bootstrap/docs/manifest-schema.md`。
+另外还有 `<source>`（上游源码：clone → 固定 ref → 铺 overlay）和 `<build kind=…>`（本地编还是容器分层编）这些，用到时再看对应项目的 `wtool.xml` 与 `wtool-base-tools/docs/manifest-schema.md`。
 
 > ⚠️ **老写法引擎还认，但每次解析都会警告**，照老教程抄会看到一片 warning：`<env src= shells=/>`
 > → 现在的 `<zshrc src=/>` / `<bashrc src=/>`；`<link src= dest=/>` → `<link home= wtool= subproject=/>`；
@@ -89,7 +89,7 @@ terminal/tmux/
 > **让两条指向同一个文件**就行：`tools/android_repack` 就是
 > `<zshrc src="env.sh"/>` + `<bashrc src="env.sh"/>`。
 
-`priority` 决定处理顺序，数字小的先来。`bootstrap` 是 5，因为它要最早把环境变量准备好；纯配置项目一般 100 也无所谓。
+`priority` 决定处理顺序，数字小的先来。`wtool-base-tools` 是 5，因为它要最早把环境变量准备好；纯配置项目一般 100 也无所谓。
 
 ### 1.2 `wtool` 负责什么，项目负责什么
 
@@ -212,8 +212,8 @@ wtool 生效之后，`wtool` 后面按 Tab 列的是 **wtool 自己的候选**�
 几条要知道的：
 
 - **zsh 和 bash 各一份，行为一致**（有人机器上没有 zsh）。
-- 它挂在引擎自己那个项目（`bootstrap`）的环境变量块上：`./install.sh` 的第 3 步
-  （也就是 `wtool install bootstrap`）就会挂好，**重开一个 shell**（`exec $SHELL`）之后生效。
+- 它挂在引擎自己那个项目（`wtool-base-tools`）的环境变量块上：`./install.sh` 的第 3 步
+  （也就是 `wtool install wtool-base-tools`）就会挂好，**重开一个 shell**（`exec $SHELL`）之后生效。
 - **内部命令不出现在候选里**（`_layer-save` / `_layer-load` 这种下划线开头的，
   和 `--help` 的主清单、看板图例是同一个口径）。
 - 这台机器没有 sudo 时，`sudo-*` 那几个命令也不出现（和看板一个口径）。这个判定是
@@ -230,7 +230,7 @@ wtool 生效之后，`wtool` 后面按 Tab 列的是 **wtool 自己的候选**�
 ┌─────────────────────────┬──────┬────────┬────────┬────────┬──────────┬──────────┬────────┬────────┬────────┬──────────┬──────────┬──────────┐
 │ 项目                    │ prio │  构建  │  安装  │  卸载  │ sudo安装 │ sudo卸载 │ 做gz包 │ 发布包 │ 下gz包 │ 解容器层 │ 推容器层 │ 拉容器层 │
 ├─────────────────────────┼──────┼────────┼────────┼────────┼──────────┼──────────┼────────┼────────┼────────┼──────────┼──────────┼──────────┤
-│ bootstrap               │ 5    │ 不支持 │ 可执行 │ 未安装 │ 不支持   │ 不支持   │ 可执行 │ 已完成 │ 未发布 │ 不支持   │ 不支持   │ 不支持   │
+│ wtool-base-tools        │ 5    │ 不支持 │ 可执行 │ 未安装 │ 不支持   │ 不支持   │ 可执行 │ 已完成 │ 未发布 │ 不支持   │ 不支持   │ 不支持   │
 │ os/ubuntu               │ 5    │ 不支持 │ 不支持 │ 不支持 │ 可执行   │ 未安装   │ 可执行 │ 已完成 │ 未发布 │ 不支持   │ 不支持   │ 不支持   │
 │ terminal/tmux           │ 50   │ 不支持 │ 可执行 │ 未安装 │ 不支持   │ 不支持   │ 可执行 │ 已完成 │ 未发布 │ 不支持   │ 不支持   │ 不支持   │
 │ editor/astronvim_v5     │ 70   │ 可执行 │ 可执行 │ 未安装 │ 不支持   │ 不支持   │ 可执行 │ 可执行 │ 未发布 │ 已完成   │ 可执行   │ 可执行   │
@@ -562,7 +562,7 @@ wtool pack-release editor/astronvim_v5
 > 中文名传上去会被它悄悄改写成 `default.zip`，那条下载直链就 404。所以**本地名和线上名
 > 是同一个**，下下来不用改名。
 
-> **不需要编译的项目只发源码包**（比如 `terminal/tmux`、`bootstrap` 这种 —— 它们没有
+> **不需要编译的项目只发源码包**（比如 `terminal/tmux`、`wtool-base-tools` 这种 —— 它们没有
 > `scripts/build.sh`，也就没有"产物"可言）：那种情况下产物包里只剩几个声明文件，
 > 而源码包本来就有，所以引擎只打一个源码包。下载方照旧三条命令，
 > `wtool unpack-release` 会把源码铺回项目目录 —— **源码就是产物**。
@@ -629,7 +629,7 @@ wtool refresh-downloads # 还是一个东西（这条不在 --help 清单里）
 
 1. **要 `gh`（GitHub CLI）并且已登录。** 没有 `gh` 就跳过、只警告一句，不算失败。
 2. **它改的是文档**：带 `<!-- >>> wtool:downloads >>> -->` 标记的那一块，宿主是
-   `wtool-base/download.md`（README 里只有一行指向它的链接，不再带标记）。
+   `wtool-doc/download.md`（README 里只有一行指向它的链接，不再带标记）。
    改完就是普通的工作区改动 —— `git diff` 能看、`git checkout` 能退，
    提交不提交由你决定。
 3. **下载页只能有一个。** 工作区里带那个标记的文档**多于一个**时，它**拒绝刷新**
@@ -716,8 +716,8 @@ wtool kill-self-forever             # 要逐字输入 KILL-SELF-FOREVER 才动�
 
 | 项目（工作区里的路径） | 仓库 | 简介 |
 |---|---|---|
-| `wtool-base` | [allinkernel/wtool](https://github.com/allinkernel/wtool) | 文档。你正在看的这份 |
-| `bootstrap` | [allinkernel/wtool-bootstrap](https://github.com/allinkernel/wtool-bootstrap) | 引擎本体：`wtool` 这条命令、规划器、执行器 |
+| `wtool-doc` | [allinkernel/wtool-doc](https://github.com/allinkernel/wtool-doc) | 文档。你正在看的这份 |
+| `wtool-base-tools` | [allinkernel/wtool-base-tools](https://github.com/allinkernel/wtool-base-tools) | 引擎本体：`wtool` 这条命令、规划器、执行器 |
 | `harness` | [allinkernel/wtool-harness](https://github.com/allinkernel/wtool-harness) | 给 AI 助手看的项目记忆（架构书 / 决策记录 / 待办 / 历史流水） |
 | `harness/dsh-conf` | [allinkernel/wtool-dsh-conf](https://github.com/allinkernel/wtool-dsh-conf) | `~/.dsh` 里**声明式**的那部分（用户级规则、DSH 设置、钩子、自建 skills） |
 | `os/ubuntu` | [allinkernel/wtool-os-ubuntu](https://github.com/allinkernel/wtool-os-ubuntu) | Ubuntu 系统包与 apt 镜像 |
@@ -725,7 +725,7 @@ wtool kill-self-forever             # 要逐字输入 KILL-SELF-FOREVER 才动�
 | `editor/astronvim_v5/astronvim_v5_config` | [allinkernel/wtool-astronvim_v5_config](https://github.com/allinkernel/wtool-astronvim_v5_config) | 上面那套的具体配置 |
 | `editor/astronvim_v5/nvim` | [neovim/neovim](https://github.com/neovim/neovim) | 上游 Neovim 源码（**不是我们的项目**，只是钉在这个位置） |
 | `shell/oh-my-zsh` | [allinkernel/wtool-ohmyzsh](https://github.com/allinkernel/wtool-ohmyzsh) | oh-my-zsh 本体 |
-| `shell/zsh` | [allinkernel/wtool-zsh](https://github.com/allinkernel/wtool-zsh) | zsh 配置 |
+| `shell/shell-rc` | [allinkernel/wtool-shell-rc](https://github.com/allinkernel/wtool-shell-rc) | zsh/bash 的配置与补全别名（**纯配置**项目） |
 | `terminal/tmux` | [allinkernel/wtool-tmux-config](https://github.com/allinkernel/wtool-tmux-config) | tmux 配置与状态脚本 |
 | `terminal/fzf` | [allinkernel/wtool-fzf-binary](https://github.com/allinkernel/wtool-fzf-binary) | fzf 预编译二进制 |
 | `tools/git-repo-sh-tools` | [allinkernel/wtool-repo](https://github.com/allinkernel/wtool-repo) | repo 工具（2026-10-04 由 `tools/repo` 改名；GitHub 仓库名没变） |
@@ -734,7 +734,7 @@ wtool kill-self-forever             # 要逐字输入 KILL-SELF-FOREVER 才动�
 | `tools/dsh-remote` | [allinkernel/wtool-dsh-remote](https://github.com/allinkernel/wtool-dsh-remote) | 手机远程接管家里的会话（阿里云 Caddy + SSH 反向隧道 + 通知） |
 | `themes/typora/lightmind` | [allinkernel/typora-LightMindTheme](https://github.com/allinkernel/typora-LightMindTheme) | Typora 主题 |
 
-> 清单里还有个 `groups="..."` 的字段（`base` / `bootstrap` / `ai-agent` / `dsh` /
+> 清单里还有个 `groups="..."` 的字段（`base` / `base-tools` / `ai-agent` / `dsh` /
 > `os` / `vim` / `zsh` / `repo` / `android` / `remote` / `themes`），可以只同步你要的
 > 那几组：`repo init -g all,-remote,-android ...`。
 
@@ -782,7 +782,7 @@ wtool-install:     还在装…（30 秒）  · Get:3 http://… 45.2 MB/120 MB
 
 **按 Tab 补出来的是当前目录的文件名，不是 wtool 的命令**
 
-补全是引擎自己那个项目（`bootstrap`）的环境变量块挂的，**要新开的 shell 才读得到**：
+补全是引擎自己那个项目（`wtool-base-tools`）的环境变量块挂的，**要新开的 shell 才读得到**：
 
 ```bash
 exec $SHELL        # 或者干脆重开一个终端
@@ -791,7 +791,7 @@ exec $SHELL        # 或者干脆重开一个终端
 还不行就确认两件事：`wtool` 这条命令本身能不能敲（敲 `wtool version` 试试，
 找不到的话看下面「shell 里 `wtool` 命令找不到」那条），以及这个 shell 是不是
 bash / zsh（补全只做了这两份）。
-能敲命令、Tab 还是补文件名的话，跑一次 `wtool install bootstrap --force` 再重开 shell。
+能敲命令、Tab 还是补文件名的话，跑一次 `wtool install wtool-base-tools --force` 再重开 shell。
 
 **`wtool` 报"不是 git 仓库"或"有未提交改动"**
 
@@ -821,7 +821,8 @@ wtool kill-self-forever            # 最后：连状态记录也删掉，要求�
 
 **shell 里 `wtool` 命令找不到**
 
-引擎挂在 `~/.wtool/bootstrap`，靠 shell 托管块加进 `PATH`（Tab 补全也挂在同一个块上）。
+引擎挂在 `$WTOOL_HOME/wtool/wtool-base-tools`（默认 `~/.wtool/wtool/wtool-base-tools`），
+靠 shell 托管块加进 `PATH`（Tab 补全也挂在同一个块上）。
 重开一个终端，或者：
 
 ```bash
