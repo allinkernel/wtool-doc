@@ -1,5 +1,19 @@
 # wtool
 
+> ⚠️ **这份手册还在旧模型上，正在重写（2026-10-13）。**
+> 引擎已按 ADR-0045 改成新模型，本文里有几处**照着做会不生效**，先看这一段的更正：
+>
+> | 本文里的旧说法 | 现状 |
+> |---|---|
+> | `~/.wtool/` 是"**影子家目录**"，按 `$HOME` 一一对应（第 4 节整节） | **不是**。`.wtool` 是一个自成一体的目录：项目接入（`wtool/`）、导出（`usr/`）、env 汇总、账本（`var/`） |
+> | `$HOME` 里由 wtool 建软链（`~/.tmux.conf`、`~/usr`…） | **不再建**。`$HOME` 里只有 rc 的**最后两行** |
+> | `~/.zshrc` 里一个 **loader 块**，source `~/.wtool/.zshrc` | 改成 **rc 最后两行**：`export WTOOL_HOME=~/.wtool` + `source ${WTOOL_HOME}/env.zsh`（bash 写 `env.bash`）。旧块会被引擎自动剥掉换成这两行 |
+> | `wtool.xml` 的 `<link home= wtool= subproject=>` | **已删除解析**（报错）。②③ 类改用 `<export_bin>` / `<export_usr>`；① 类**什么都不用写**（源码即产物） |
+> | 状态/账本在 `~/.local/state/wtool/` | **账本**跟着 `.wtool` 走（`$WTOOL_HOME/var/`）；只有**日志**留在本机 `~/.local/state/wtool/wtool-logs-*`（删了不影响） |
+>
+> 这份手册重写完之前，**以工作区里的 `harness/architecture.md`（私有仓；现状唯一权威）
+> 和 `harness/docs/adr/0045-wtool-redesign/` 的设计书为准**。下载入口 [`download.md`](download.md) 不受影响。
+
 把一堆零散的个人配置和工具 —— shell、终端、编辑器、主题 —— 用一条命令装到一台新机器上。
 
 这不是一个软件，是一套**管理方式**：所有配置以独立的小项目形式存在，各自放在自己的 Git
