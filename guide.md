@@ -733,20 +733,27 @@ wtool kill-self-forever             # 要逐字输入 KILL-SELF-FOREVER 才动�
 | `wtool-doc` | [allinkernel/wtool-doc](https://github.com/allinkernel/wtool-doc) | 文档。你正在看的这份 |
 | `wtool-base-tools` | [allinkernel/wtool-base-tools](https://github.com/allinkernel/wtool-base-tools) | 引擎本体：`wtool` 这条命令、规划器、执行器 |
 | `harness` | [allinkernel/wtool-harness](https://github.com/allinkernel/wtool-harness) | 给 AI 助手看的项目记忆（架构书 / 决策记录 / 待办 / 历史流水） |
-| `harness/dsh-conf` | [allinkernel/wtool-dsh-conf](https://github.com/allinkernel/wtool-dsh-conf) | `~/.dsh` 里**声明式**的那部分（用户级规则、DSH 设置、钩子、自建 skills） |
+| `harness/dsh-conf` | [allinkernel/wtool-dsh-conf](https://github.com/allinkernel/wtool-dsh-conf) | `~/.dsh` 里**声明式**的那部分（用户级规则、DSH 设置、钩子、自建 skills）（**私有仓**） |
 | `os/ubuntu` | [allinkernel/wtool-os-ubuntu](https://github.com/allinkernel/wtool-os-ubuntu) | Ubuntu 系统包与 apt 镜像 |
 | `editor/astronvim_v5` | [allinkernel/wtool-astronvim_v5](https://github.com/allinkernel/wtool-astronvim_v5) | Neovim 环境的构建与发布 |
 | `editor/astronvim_v5/astronvim_v5_config` | [allinkernel/wtool-astronvim_v5_config](https://github.com/allinkernel/wtool-astronvim_v5_config) | 上面那套的具体配置 |
 | `editor/astronvim_v5/nvim` | [neovim/neovim](https://github.com/neovim/neovim) | 上游 Neovim 源码（**不是我们的项目**，只是钉在这个位置） |
 | `shell/oh-my-zsh` | [allinkernel/wtool-ohmyzsh](https://github.com/allinkernel/wtool-ohmyzsh) | oh-my-zsh 本体 |
 | `shell/shell-rc` | [allinkernel/wtool-shell-rc](https://github.com/allinkernel/wtool-shell-rc) | zsh/bash 的配置与补全别名（**纯配置**项目） |
+| `shell/zsh` | [allinkernel/wtool-zsh](https://github.com/allinkernel/wtool-zsh) | zsh **源码**（上游 `zsh-users/zsh` 的 fork，按发行版在 docker 里各编一份） |
 | `terminal/tmux` | [allinkernel/wtool-tmux-config](https://github.com/allinkernel/wtool-tmux-config) | tmux 配置与状态脚本 |
-| `terminal/fzf` | [allinkernel/wtool-fzf-binary](https://github.com/allinkernel/wtool-fzf-binary) | fzf 预编译二进制 |
 | `tools/git-repo-sh-tools` | [allinkernel/wtool-repo](https://github.com/allinkernel/wtool-repo) | repo 工具（2026-10-04 由 `tools/repo` 改名；GitHub 仓库名没变） |
 | `tools/wsw-repo-fork` | [allinkernel/wtool-git-repo](https://github.com/allinkernel/wtool-git-repo) | `repo` 启动器自己那份检出（就是我们用的那个 `repo` 脚本，单独存一份好改） |
 | `tools/android_repack` | [allinkernel/wtool-android_repack](https://github.com/allinkernel/wtool-android_repack) | Android 镜像解包 / 改包 / 重签（**私有仓**） |
+| `tools/musl-bins` | [allinkernel/wtool-musl-bins](https://github.com/allinkernel/wtool-musl-bins) | 从上游 release 取静态 musl 二进制当命令用（**一个仓库**，每个工具一个子目录 = 一个 wtool 项目） |
 | `tools/dsh-remote` | [allinkernel/wtool-dsh-remote](https://github.com/allinkernel/wtool-dsh-remote) | 手机远程接管家里的会话（阿里云 Caddy + SSH 反向隧道 + 通知） |
 | `themes/typora/lightmind` | [allinkernel/typora-LightMindTheme](https://github.com/allinkernel/typora-LightMindTheme) | Typora 主题 |
+
+> **`terminal/fzf` 已从清单摘除**（2026-10-14，D34）：它和 `tools/musl-bins/fzf`
+> 抢同一个 `usr/bin/fzf`，`fzf` 命令现在由 `tools/musl-bins/fzf` 提供。
+> 它的**仓库还在**（`allinkernel/wtool-fzf-binary`），只是不再随工作区同步 ——
+> 只有在**本地还留着 `terminal/fzf` 目录**的机器上才能手工 `wtool install terminal/fzf`，
+> 新 `repo sync` 出来的工作区里不会有它。
 
 > 清单里还有个 `groups="..."` 的字段（`base` / `base-tools` / `ai-agent` / `dsh` /
 > `os` / `vim` / `zsh` / `repo` / `android` / `remote` / `themes`），可以只同步你要的
