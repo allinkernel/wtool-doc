@@ -270,7 +270,7 @@ exec $SHELL && wtool check                         # 验收：应当说"一切�
 | `terminal/fzf` | `source-offline.zip` | <https://github.com/allinkernel/wtool-fzf-binary/releases/tag/offline-2026-10-14> |
 | `tools/git-repo-sh-tools` | `source-offline.zip` | <https://github.com/allinkernel/wtool-repo/releases/tag/offline-2026-10-14> |
 | `tools/android_repack` | `source-offline.zip` | <https://github.com/allinkernel/wtool-android_repack/releases/tag/offline-2026-10-14> |
-| `tools/dsh-remote` | `source-offline.zip` | <https://github.com/allinkernel/wtool-dsh-remote/releases/tag/offline-2026-10-14> |
+| `dsh-projects/dsh-remote` | `source-offline.zip` | <https://github.com/allinkernel/wtool-dsh-remote/releases/tag/offline-2026-10-14> |
 | `os/ubuntu` | `source-offline.zip` | <https://github.com/allinkernel/wtool-os-ubuntu/releases/tag/offline-2026-10-14> |
 
 `ds_dev-…` 那一族（给有源码的开发机）也有，例如
@@ -289,7 +289,7 @@ exec $SHELL && wtool check                         # 验收：应当说"一切�
 | `tools/musl-bins/*`（上游二进制工具，一个仓库多个项目） | <https://github.com/allinkernel/wtool-musl-bins/releases> |
 | `tools/git-repo-sh-tools` | <https://github.com/allinkernel/wtool-repo/releases> |
 | `tools/android_repack` | <https://github.com/allinkernel/wtool-android_repack/releases> |
-| `tools/dsh-remote` | <https://github.com/allinkernel/wtool-dsh-remote/releases> |
+| `dsh-projects/dsh-remote` | <https://github.com/allinkernel/wtool-dsh-remote/releases> |
 | `os/ubuntu` | <https://github.com/allinkernel/wtool-os-ubuntu/releases> |
 | 这份文档（`wtool-doc`） | <https://github.com/allinkernel/wtool-doc/releases> |
 

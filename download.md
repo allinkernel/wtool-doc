@@ -338,8 +338,7 @@ wtool bootstrap                    # 用户层：文件、软链、shell 集成�
 | `terminal/fzf` | `allinkernel/wtool-fzf-binary` | <https://github.com/allinkernel/wtool-fzf-binary/releases> |
 | `tools/git-repo-sh-tools` | `allinkernel/wtool-repo` | <https://github.com/allinkernel/wtool-repo/releases> |
 | `tools/android_repack` | `allinkernel/wtool-android_repack` | <https://github.com/allinkernel/wtool-android_repack/releases> （**私有**） |
-| `tools/dsh-remote` | `allinkernel/wtool-dsh-remote` | <https://github.com/allinkernel/wtool-dsh-remote/releases> |
-| `harness/dsh-conf` | `allinkernel/wtool-dsh-conf` | <https://github.com/allinkernel/wtool-dsh-conf/releases> |
+| `dsh-projects/dsh-remote` | `allinkernel/wtool-dsh-remote` | <https://github.com/allinkernel/wtool-dsh-remote/releases> |
 | `editor/astronvim_v5` | `allinkernel/wtool-astronvim_v5` | <https://github.com/allinkernel/wtool-astronvim_v5/releases> |
 
 （`docs/download.md` 那份**页**是每个项目自己仓库里的**同一份内容的另一种排版** ——

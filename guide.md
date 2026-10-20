@@ -733,7 +733,7 @@ wtool kill-self-forever             # 要逐字输入 KILL-SELF-FOREVER 才动�
 | `wtool-doc` | [allinkernel/wtool-doc](https://github.com/allinkernel/wtool-doc) | 文档。你正在看的这份 |
 | `wtool-base-tools` | [allinkernel/wtool-base-tools](https://github.com/allinkernel/wtool-base-tools) | 引擎本体：`wtool` 这条命令、规划器、执行器 |
 | `harness` | [allinkernel/wtool-harness](https://github.com/allinkernel/wtool-harness) | 给 AI 助手看的项目记忆（架构书 / 决策记录 / 待办 / 历史流水） |
-| `harness/dsh-conf` | [allinkernel/wtool-dsh-conf](https://github.com/allinkernel/wtool-dsh-conf) | `~/.dsh` 里**声明式**的那部分（用户级规则、DSH 设置、钩子、自建 skills）（**私有仓**） |
+| `dsh-projects/dsh-conf` | [allinkernel/wtool-dsh-conf](https://github.com/allinkernel/wtool-dsh-conf) | `~/.dsh` 里**声明式**的那部分（用户级规则、DSH 设置、钩子、自建 skills）（**私有仓**） |
 | `os/ubuntu` | [allinkernel/wtool-os-ubuntu](https://github.com/allinkernel/wtool-os-ubuntu) | Ubuntu 系统包与 apt 镜像 |
 | `editor/astronvim_v5` | [allinkernel/wtool-astronvim_v5](https://github.com/allinkernel/wtool-astronvim_v5) | Neovim 环境的构建与发布 |
 | `editor/astronvim_v5/astronvim_v5_config` | [allinkernel/wtool-astronvim_v5_config](https://github.com/allinkernel/wtool-astronvim_v5_config) | 上面那套的具体配置 |
@@ -746,7 +746,7 @@ wtool kill-self-forever             # 要逐字输入 KILL-SELF-FOREVER 才动�
 | `tools/wsw-repo-fork` | [allinkernel/wtool-git-repo](https://github.com/allinkernel/wtool-git-repo) | `repo` 启动器自己那份检出（就是我们用的那个 `repo` 脚本，单独存一份好改） |
 | `tools/android_repack` | [allinkernel/wtool-android_repack](https://github.com/allinkernel/wtool-android_repack) | Android 镜像解包 / 改包 / 重签（**私有仓**） |
 | `tools/musl-bins` | [allinkernel/wtool-musl-bins](https://github.com/allinkernel/wtool-musl-bins) | 从上游 release 取静态 musl 二进制当命令用（**一个仓库**，每个工具一个子目录 = 一个 wtool 项目） |
-| `tools/dsh-remote` | [allinkernel/wtool-dsh-remote](https://github.com/allinkernel/wtool-dsh-remote) | 手机远程接管家里的会话（阿里云 Caddy + SSH 反向隧道 + 通知） |
+| `dsh-projects/dsh-remote` | [allinkernel/wtool-dsh-remote](https://github.com/allinkernel/wtool-dsh-remote) | 手机远程接管家里的会话（阿里云 Caddy + SSH 反向隧道 + 通知） |
 | `themes/typora/lightmind` | [allinkernel/typora-LightMindTheme](https://github.com/allinkernel/typora-LightMindTheme) | Typora 主题 |
 
 > **`terminal/fzf` 已从清单摘除**（2026-10-14，D34）：它和 `tools/musl-bins/fzf`
