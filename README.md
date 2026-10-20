@@ -246,12 +246,16 @@ exec $SHELL && wtool check                         # 验收：应当说"一切�
 
 | 目标机器 | 下哪个 | 大小 | sha256（`sha256sum -c` 用同名 `.sha256`） | 包里 zsh 要求的最低 glibc |
 |---|---|---|---|---|
-| Ubuntu 22.04 | [`wtool-all-ubuntu22.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-14/wtool-all-ubuntu22.04.tar.gz) | 8.7 MB | `332388956732d4aa…` | 2.34 |
-| Ubuntu 24.04 | [`wtool-all-ubuntu24.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-14/wtool-all-ubuntu24.04.tar.gz) | 8.7 MB | `7f158ceeca8500b9…` | 2.38 |
-| Ubuntu 26.04 | [`wtool-all-ubuntu26.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-14/wtool-all-ubuntu26.04.tar.gz) | 8.7 MB | `126acb18fd36d60c…` | 2.38 |
+| Ubuntu 22.04 | [`wtool-all-ubuntu22.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-20/wtool-all-ubuntu22.04.tar.gz) | 12.2 MB | `524f72c64bae8de1…` | 2.34 |
+| Ubuntu 24.04 | [`wtool-all-ubuntu24.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-20/wtool-all-ubuntu24.04.tar.gz) | 12.2 MB | `78c13b8a105853dc…` | 2.38 |
+| Ubuntu 26.04 | [`wtool-all-ubuntu26.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-20/wtool-all-ubuntu26.04.tar.gz) | 12.2 MB | `81887dbfec402896…` | 2.38 |
 
 发布页（旁边有 `.sha256`，分卷时还会有 `check-hash*.sh`）：
-<https://github.com/allinkernel/wtool-doc/releases/tag/offline-2026-10-14>
+<https://github.com/allinkernel/wtool-doc/releases/tag/offline-2026-10-20>
+
+> 这一版（`offline-2026-10-20`）比上一版的差别：**新增** `rg`（ripgrep 15.2.0）与
+> `fdfind`（fd 10.5.0）两条静态命令；**不含** `dsh-conf` / `dsh-remote`
+> （那两个项目声明了 `<publish kind="none"/>`：只有开发机上需要）。
 
 > **22.04 那份要求最低**（2.34）：能跑 22.04 的机器都能跑它。
 > 24.04 / 26.04 两份要求一样（2.38）—— 26.04 那份是"在本发行版里编的"，
