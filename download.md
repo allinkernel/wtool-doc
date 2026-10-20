@@ -86,9 +86,6 @@ git clone https://github.com/allinkernel/wtool-base-tools.git ~/self/wtool/wtool
 | `tools/android_repack` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-android_repack/releases/tag/ds_dev-2026-10-09) | [dist.json](https://github.com/allinkernel/wtool-android_repack/releases/download/ds_dev-2026-10-09/dist.json) | 849B |
 | `tools/android_repack` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-android_repack/releases/tag/ds_dev-2026-10-09) | [source-hash.txt](https://github.com/allinkernel/wtool-android_repack/releases/download/ds_dev-2026-10-09/source-hash.txt) | 77B |
 | `tools/android_repack` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-android_repack/releases/tag/ds_dev-2026-10-09) | [source.zip](https://github.com/allinkernel/wtool-android_repack/releases/download/ds_dev-2026-10-09/source.zip) | 180.9K |
-| `tools/dsh-remote` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-dsh-remote/releases/tag/ds_dev-2026-10-09) | [dist.json](https://github.com/allinkernel/wtool-dsh-remote/releases/download/ds_dev-2026-10-09/dist.json) | 868B |
-| `tools/dsh-remote` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-dsh-remote/releases/tag/ds_dev-2026-10-09) | [source-hash.txt](https://github.com/allinkernel/wtool-dsh-remote/releases/download/ds_dev-2026-10-09/source-hash.txt) | 77B |
-| `tools/dsh-remote` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-dsh-remote/releases/tag/ds_dev-2026-10-09) | [source.zip](https://github.com/allinkernel/wtool-dsh-remote/releases/download/ds_dev-2026-10-09/source.zip) | 281.2K |
 | `tools/git-repo-sh-tools` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-repo/releases/tag/ds_dev-2026-10-09) | [dist.json](https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/dist.json) | 862B |
 | `tools/git-repo-sh-tools` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-repo/releases/tag/ds_dev-2026-10-09) | [source-hash.txt](https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/source-hash.txt) | 77B |
 | `tools/git-repo-sh-tools` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-repo/releases/tag/ds_dev-2026-10-09) | [source.zip](https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/source.zip) | 91.4K |
@@ -123,9 +120,6 @@ curl -fL -o terminal-tmux-source.zip https://github.com/allinkernel/wtool-tmux-c
 curl -fL -o tools-android_repack-dist.json https://github.com/allinkernel/wtool-android_repack/releases/download/ds_dev-2026-10-09/dist.json
 curl -fL -o tools-android_repack-source-hash.txt https://github.com/allinkernel/wtool-android_repack/releases/download/ds_dev-2026-10-09/source-hash.txt
 curl -fL -o tools-android_repack-source.zip https://github.com/allinkernel/wtool-android_repack/releases/download/ds_dev-2026-10-09/source.zip
-curl -fL -o tools-dsh-remote-dist.json https://github.com/allinkernel/wtool-dsh-remote/releases/download/ds_dev-2026-10-09/dist.json
-curl -fL -o tools-dsh-remote-source-hash.txt https://github.com/allinkernel/wtool-dsh-remote/releases/download/ds_dev-2026-10-09/source-hash.txt
-curl -fL -o tools-dsh-remote-source.zip https://github.com/allinkernel/wtool-dsh-remote/releases/download/ds_dev-2026-10-09/source.zip
 curl -fL -o tools-git-repo-sh-tools-dist.json https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/dist.json
 curl -fL -o tools-git-repo-sh-tools-source-hash.txt https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/source-hash.txt
 curl -fL -o tools-git-repo-sh-tools-source.zip https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/source.zip
@@ -146,8 +140,6 @@ unzip -o terminal-fzf-source.zip
 unzip -o terminal-tmux-source.zip
 
 unzip -o tools-android_repack-source.zip
-
-unzip -o tools-dsh-remote-source.zip
 
 unzip -o tools-git-repo-sh-tools-source.zip
 
@@ -185,9 +177,6 @@ Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-tmux-config/release
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-android_repack/releases/download/ds_dev-2026-10-09/dist.json" -OutFile "tools-android_repack-dist.json"
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-android_repack/releases/download/ds_dev-2026-10-09/source-hash.txt" -OutFile "tools-android_repack-source-hash.txt"
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-android_repack/releases/download/ds_dev-2026-10-09/source.zip" -OutFile "tools-android_repack-source.zip"
-Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-dsh-remote/releases/download/ds_dev-2026-10-09/dist.json" -OutFile "tools-dsh-remote-dist.json"
-Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-dsh-remote/releases/download/ds_dev-2026-10-09/source-hash.txt" -OutFile "tools-dsh-remote-source-hash.txt"
-Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-dsh-remote/releases/download/ds_dev-2026-10-09/source.zip" -OutFile "tools-dsh-remote-source.zip"
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/dist.json" -OutFile "tools-git-repo-sh-tools-dist.json"
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/source-hash.txt" -OutFile "tools-git-repo-sh-tools-source-hash.txt"
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/source.zip" -OutFile "tools-git-repo-sh-tools-source.zip"
@@ -208,8 +197,6 @@ Expand-Archive -Force -Path "terminal-fzf-source.zip" -DestinationPath "."
 Expand-Archive -Force -Path "terminal-tmux-source.zip" -DestinationPath "."
 
 Expand-Archive -Force -Path "tools-android_repack-source.zip" -DestinationPath "."
-
-Expand-Archive -Force -Path "tools-dsh-remote-source.zip" -DestinationPath "."
 
 Expand-Archive -Force -Path "tools-git-repo-sh-tools-source.zip" -DestinationPath "."
 
