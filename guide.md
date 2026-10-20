@@ -233,10 +233,35 @@ wtool 生效之后，`wtool` 后面按 Tab 列的是 **wtool 自己的候选**�
 - 这台机器没有 sudo 时，`sudo-*` 那几个命令也不出现（和看板一个口径）。这个判定是
   **每次按 Tab 现算的**，不用重开 shell —— 权限变了（比如刚 `sudo` 过一次），下一次 Tab 就变了。
 
-### `wtool`（裸跑）
+### `wtool`（裸跑）与 `wtool help`
 
-裸跑 `wtool` 打印**五段看板**，最后是两张图说明"安装"和"发布"怎么走。
-（`wtool table` 这个名字已经删掉，敲它只会告诉你裸跑 `wtool`。）
+> **2026-10-21 改了**：裸跑 `wtool` **只打那张表**（用户原话："应该只显示表格，
+> 后续的内容实在是太多了。应该放到 `wtool help`"）。安装/发布那两张图、五段看板、
+> 四段计划都搬到 `wtool help` 里了（`wtool help -v` 才再把图打出来）。
+> 各个目录（`__release/`、`__output/`、`__layer/`、`var/`、`usr/`）是什么、
+> 能不能删，也在 `wtool help` 末尾的「磁盘上那些目录是什么」一节。
+
+### `wtool help`：命令清单 + **目录地图**
+
+```bash
+wtool help          # 用法（每条命令干什么）+ 磁盘上那些目录是什么
+wtool help -v       # 再加 install / release 两张流程图与四段计划
+```
+
+目录地图回答三个问题：**是什么 / 什么时候出现 / 能不能删**：
+
+| 目录 | 是什么 | 能删吗 |
+|---|---|---|
+| `$WTOOL_HOME/`（默认 `~/.wtool`） | wtool 的家；**搬机器就是搬它** | 删 = 全没了 |
+| `$WTOOL_HOME/usr/` | 装出来的东西（`bin`/`lib`/`share`…，几乎全是相对软链） | 能，`wtool install` 重装即恢复 |
+| `$WTOOL_HOME/wtool/` | 项目接入点（L1）：`wtool/<项目路径>` → 项目目录（整机包里是实体目录） | 删 = 那个项目的 env source 不进来 |
+| `$WTOOL_HOME/var/` | **账本**（`registry.tsv` / `<项目>/journal.tsv` / `meta.tsv` / env 块） | **别删**：check/uninstall 的唯一依据 |
+| `$WTOOL_HOME/env.zsh` / `.bash` | 环境汇总（按 priority source 各项目的块） | 能，`wtool install` 一次就重建 |
+| `<项目>/__output/` | 产物（build / unpack-release 的结果；① 类没有） | 能，重 build / 重下就有 |
+| `<项目>/__release/` | 打出来的包 + `.sha256` + 分卷 + `check-hash*.sh`；`download-release` 下的上游资产 | 能，重打/重下就有 |
+| `<项目>/__layer/` | docker 构建的层镜像（OCI，GB 级） | 能，重 build 才有 |
+
+分不清哪出了问题：`wtool status`（每个项目一行状态）→ `wtool check`（逐条说哪里不对）。
 
 **第 1 段：每个项目能跑哪些命令**（下面这个例子来自一台**有 sudo** 的机器，13 列）
 
@@ -329,20 +354,38 @@ wtool 生效之后，`wtool` 后面按 Tab 列的是 **wtool 自己的候选**�
 `--verbose` 再多一段"明细"（装过什么时候、产物从哪来、发布过没）；
 `--summary` 只打一行汇总。
 
-### `wtool status`：登记表体检 / 某一格看不懂的原因
+### `wtool status`：每个项目一行状态 / 某一格看不懂的原因
 
 `wtool status` 有**两种形态**，按你手里有没有项目名挑。
 
-**不带参数 = 登记表 + 软链检查**（一次快速体检）：把登记过的软链逐条看一遍，
-缺了就报 `缺失: <路径>（项目 <项目路径>）`，全在就报一句条数，最后附一张登记表。
-典型的用法是"我是不是把哪个软链删掉了"：
+**不带参数 = 一张表，每行一个项目、每行都有状态**（2026-10-21 改）。
+状态只有四个：**正常 / 悬空 / 缺失 / 未安装**，判据和 `wtool check` 是**同一个**
+（`wtool_plan.py: project_health`）—— 所以两条命令不会给出互相矛盾的结论。
+表下面一行汇总，典型的用法是"我是不是把哪个软链/项目目录弄丢了"：
 
 ```bash
 wtool status
 ```
 
 ```
-wtool: 所有登记的软链都在（2 条）
+  PROJECT                            KIND       状态     说明
+  -----------------------------------------------------------------
+  shell/zsh                          docker     正常     -
+  shell/shell-rc                     source     正常     -
+  tools/musl-bins/rg                 muslbin    正常     -
+  terminal/tmux                      source     悬空     L1 悬空：wtool/terminal/tmux → /…/terminal/tmux（目标不在）
+
+  4 个项目：正常 3 / 悬空 1 / 缺失 0 / 未安装 0
+```
+
+- **悬空**：L1（或某条 L2 链）是链、但目标不在 —— 多半是工作区搬走了 / 项目目录被删了。
+- **缺失**：L1 还好，但账本里记的 L2 链 / `<generate>` 产物不见了。
+- **未安装**：登记表里有它，但账本里没有（只装了一半 / 手工拷过）。
+- 有问题的那些，`wtool check` 会逐条给修法；`wtool check` 的退出码也会是**非 0**
+  （只有真一致才 0）。
+
+（旧的"先报一串 `缺失:` 再打一张登记表"的形态**已经删了** —— 那张表看不出状态，
+两条命令的结论还对不上。）
 
 PROJECT      KIND     DEST
 terminal/tmux file     /home/<你>/.tmux.conf
