@@ -243,9 +243,9 @@ exec $SHELL && wtool check                         # 验收：应当说"一切�
 
 | 目标机器 | 下哪个 | 大小 | sha256（`sha256sum -c` 用同名 `.sha256`） | 包里 zsh 要求的最低 glibc |
 |---|---|---|---|---|
-| Ubuntu 22.04 | [`wtool-all-ubuntu22.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-21/wtool-all-ubuntu22.04.tar.gz) | @@SIZE2204@@ | `@@SHA2204@@` | 2.34 |
-| Ubuntu 24.04 | [`wtool-all-ubuntu24.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-21/wtool-all-ubuntu24.04.tar.gz) | @@SIZE2404@@ | `@@SHA2404@@` | 2.38 |
-| Ubuntu 26.04 | [`wtool-all-ubuntu26.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-21/wtool-all-ubuntu26.04.tar.gz) | @@SIZE2604@@ | `@@SHA2604@@` | 2.38 |
+| Ubuntu 22.04 | [`wtool-all-ubuntu22.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-21/wtool-all-ubuntu22.04.tar.gz) | 227,023,936 B | `f94d713ce1178a0ebaa986668480aabbf03ad40b56edbc5d5509d8919d227352` | 2.34 |
+| Ubuntu 24.04 | [`wtool-all-ubuntu24.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-21/wtool-all-ubuntu24.04.tar.gz) | 227,023,991 B | `620a9b6c850c582139a601297d89d2f70b09dd9b17acde6f9d31409e4f41cdcb` | 2.38 |
+| Ubuntu 26.04 | [`wtool-all-ubuntu26.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-21/wtool-all-ubuntu26.04.tar.gz) | 227,023,929 B | `65d5c422c34507e82f583189e53162dff1ceef150ad8a73ef2abc18b6b37a4c7` | 2.38 |
 
 发布页（旁边有 `.sha256`，分卷时还会有 `check-hash*.sh`）：
 <https://github.com/allinkernel/wtool-doc/releases/tag/offline-2026-10-21>
