@@ -71,19 +71,31 @@ wtool bootstrap
 
 **(a) 整机迁移包**（推荐：把一台装好的机器整体搬过去）
 
-按发行版各有一份，链接在[第 6 节](#6-下载页与发布页)。用法就三步：
+按发行版各有一份，链接在[第 6 节](#6-下载页与发布页)。用法：
 
 ```bash
 # 1. 拼回整包（包没分卷就跳过这行）
 cat wtool-all-*.tar.gz.part-* > wtool-all.tar.gz
 # 2. 解开 —— 得到的是一个名为 .wtool 的目录
 tar xf wtool-all.tar.gz
-# 3. 进去跑安装器（它把这个 .wtool 接到位：环境、入口，并自检一遍）
-cd .wtool && ./install.sh
+# 3. 跑到新位置（想放在别处就换个目标，比如 ~/wangshaowei/.wtool）
+mv .wtool ~/.wtool && cd ~/.wtool
+# 4. 跑安装器：它只让 `wtool` 命令能用（写 rc、建入口链、自检），
+#    **不装任何项目**、**不碰 ~/.zshenv**
+./install.sh
 ```
 
-包里的东西**全都是装好的**：各项目的文件、它们的产物，还有"装过什么"的账本。
-装完 `wtool check` 会说"一切对得上"。
+> **2026-10-22 起包里是一份"还没装任何项目"的 `.wtool`**（上一版是"已经装好的"）。
+> 所以多一步 —— 重新开一个终端，然后：
+
+```bash
+wtool            # 看清点：每个项目都是「未安装」
+wtool bootstrap  # 一口气装好全部（离线，用包里自带的产物；不 sudo、不联网）
+wtool check      # 一切对得上
+```
+
+装完 `zsh` 起来就是 oh-my-zsh 的提示符（`ZSH_THEME=ys`）。**`~/.zshenv` 不会被创建**：
+zsh 的模块路径放在 `.wtool/.zshenv` 里，靠 `env.zsh` 导出的 `ZDOTDIR` 生效。
 
 > 包里那份 `zsh` 是**按发行版编的**，所以整机包按发行版分三种（22.04 / 24.04 / 26.04）——
 > **下和你目标机器同一个发行版的那份**。怎么查：`grep VERSION_ID /etc/os-release`。
@@ -249,6 +261,11 @@ exec $SHELL && wtool check                         # 验收：应当说"一切�
 
 发布页（旁边有 `.sha256`，分卷时还会有 `check-hash*.sh`）：
 <https://github.com/allinkernel/wtool-doc/releases/tag/offline-2026-10-21>
+
+> ⚠️ 上表是 **`offline-2026-10-21`** 那一版（包里=装好的，三种发行版各一份）。
+> **2026-10-22 之后**再发的那一版形状变了：包 = 一份"**还没装任何项目**"的 `.wtool`，
+> 解开来 `wtool` 列出的全是「未安装」，`wtool bootstrap` 才装起来。两者的用法差别
+> 见上面 §2.2(a)。（新包还没发布 —— 等用户拍板。）
 
 > #### 这一版（`offline-2026-10-21`）换了口径
 >
