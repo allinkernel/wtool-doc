@@ -80,10 +80,15 @@ cat wtool-all-*.tar.gz.part-* > wtool-all.tar.gz
 tar xf wtool-all.tar.gz
 # 3. 跑到新位置（想放在别处就换个目标，比如 ~/wangshaowei/.wtool）
 mv .wtool ~/.wtool && cd ~/.wtool
-# 4. 跑安装器：它只让 `wtool` 命令能用（写 rc、建入口链、自检），
-#    **不装任何项目**、**不碰 ~/.zshenv**
+# 4. 跑安装器：它只让 `wtool` 命令能用（**自动**往 ~/.bashrc / ~/.zshrc 末尾写那两行、
+#    建入口链、自检），**不装任何项目**、**不碰 ~/.zshenv**
 ./install.sh
 ```
+
+> 那两行是**自动写**的（不用回答问题）：只追加在文件末尾、已经在就不重复写、
+> 原有内容一个字不动；rc 不存在就直接建。放进别处时用 `./install.sh --portable`，
+> 那样**一个字节都不碰**你的 `~/.bashrc`，改成生成 `wtool-bashrc` / `wtool-zshrc`
+> 让你自己 `source`。
 
 > **2026-10-22 起包里是一份"还没装任何项目"的 `.wtool`**（上一版是"已经装好的"）。
 > 所以多一步 —— 重新开一个终端，然后：
