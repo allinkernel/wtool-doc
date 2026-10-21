@@ -66,9 +66,6 @@ git clone https://github.com/allinkernel/wtool-base-tools.git ~/self/wtool/wtool
 | `os/ubuntu` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-os-ubuntu/releases/tag/ds_dev-2026-10-09) | [dist.json](https://github.com/allinkernel/wtool-os-ubuntu/releases/download/ds_dev-2026-10-09/dist.json) | 827B |
 | `os/ubuntu` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-os-ubuntu/releases/tag/ds_dev-2026-10-09) | [source-hash.txt](https://github.com/allinkernel/wtool-os-ubuntu/releases/download/ds_dev-2026-10-09/source-hash.txt) | 77B |
 | `os/ubuntu` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-os-ubuntu/releases/tag/ds_dev-2026-10-09) | [source.zip](https://github.com/allinkernel/wtool-os-ubuntu/releases/download/ds_dev-2026-10-09/source.zip) | 18.2K |
-| `shell/oh-my-zsh` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-ohmyzsh/releases/tag/ds_dev-2026-10-09) | [dist.json](https://github.com/allinkernel/wtool-ohmyzsh/releases/download/ds_dev-2026-10-09/dist.json) | 846B |
-| `shell/oh-my-zsh` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-ohmyzsh/releases/tag/ds_dev-2026-10-09) | [source-hash.txt](https://github.com/allinkernel/wtool-ohmyzsh/releases/download/ds_dev-2026-10-09/source-hash.txt) | 77B |
-| `shell/oh-my-zsh` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-ohmyzsh/releases/tag/ds_dev-2026-10-09) | [source.zip](https://github.com/allinkernel/wtool-ohmyzsh/releases/download/ds_dev-2026-10-09/source.zip) | 3.3M |
 | `shell/shell-rc` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-shell-rc/releases/tag/ds_dev-2026-10-09) | [dist.json](https://github.com/allinkernel/wtool-shell-rc/releases/download/ds_dev-2026-10-09/dist.json) | 847B |
 | `shell/shell-rc` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-shell-rc/releases/tag/ds_dev-2026-10-09) | [source-hash.txt](https://github.com/allinkernel/wtool-shell-rc/releases/download/ds_dev-2026-10-09/source-hash.txt) | 77B |
 | `shell/shell-rc` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-shell-rc/releases/tag/ds_dev-2026-10-09) | [source.zip](https://github.com/allinkernel/wtool-shell-rc/releases/download/ds_dev-2026-10-09/source.zip) | 118.1K |
@@ -89,9 +86,6 @@ git clone https://github.com/allinkernel/wtool-base-tools.git ~/self/wtool/wtool
 | `tools/git-repo-sh-tools` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-repo/releases/tag/ds_dev-2026-10-09) | [dist.json](https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/dist.json) | 862B |
 | `tools/git-repo-sh-tools` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-repo/releases/tag/ds_dev-2026-10-09) | [source-hash.txt](https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/source-hash.txt) | 77B |
 | `tools/git-repo-sh-tools` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-repo/releases/tag/ds_dev-2026-10-09) | [source.zip](https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/source.zip) | 91.4K |
-| `wtool-base-tools` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-base-tools/releases/tag/ds_dev-2026-10-09) | [dist.json](https://github.com/allinkernel/wtool-base-tools/releases/download/ds_dev-2026-10-09/dist.json) | 859B |
-| `wtool-base-tools` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-base-tools/releases/tag/ds_dev-2026-10-09) | [source-hash.txt](https://github.com/allinkernel/wtool-base-tools/releases/download/ds_dev-2026-10-09/source-hash.txt) | 77B |
-| `wtool-base-tools` | [ds_dev-2026-10-09](https://github.com/allinkernel/wtool-base-tools/releases/tag/ds_dev-2026-10-09) | [source.zip](https://github.com/allinkernel/wtool-base-tools/releases/download/ds_dev-2026-10-09/source.zip) | 353.2K |
 
 ### bash（Linux / macOS / WSL）
 
@@ -100,9 +94,6 @@ mkdir -p ~/self && cd ~/self
 curl -fL -o os-ubuntu-dist.json https://github.com/allinkernel/wtool-os-ubuntu/releases/download/ds_dev-2026-10-09/dist.json
 curl -fL -o os-ubuntu-source-hash.txt https://github.com/allinkernel/wtool-os-ubuntu/releases/download/ds_dev-2026-10-09/source-hash.txt
 curl -fL -o os-ubuntu-source.zip https://github.com/allinkernel/wtool-os-ubuntu/releases/download/ds_dev-2026-10-09/source.zip
-curl -fL -o shell-oh-my-zsh-dist.json https://github.com/allinkernel/wtool-ohmyzsh/releases/download/ds_dev-2026-10-09/dist.json
-curl -fL -o shell-oh-my-zsh-source-hash.txt https://github.com/allinkernel/wtool-ohmyzsh/releases/download/ds_dev-2026-10-09/source-hash.txt
-curl -fL -o shell-oh-my-zsh-source.zip https://github.com/allinkernel/wtool-ohmyzsh/releases/download/ds_dev-2026-10-09/source.zip
 curl -fL -o shell-shell-rc-dist.json https://github.com/allinkernel/wtool-shell-rc/releases/download/ds_dev-2026-10-09/dist.json
 curl -fL -o shell-shell-rc-source-hash.txt https://github.com/allinkernel/wtool-shell-rc/releases/download/ds_dev-2026-10-09/source-hash.txt
 curl -fL -o shell-shell-rc-source.zip https://github.com/allinkernel/wtool-shell-rc/releases/download/ds_dev-2026-10-09/source.zip
@@ -123,12 +114,7 @@ curl -fL -o tools-android_repack-source.zip https://github.com/allinkernel/wtool
 curl -fL -o tools-git-repo-sh-tools-dist.json https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/dist.json
 curl -fL -o tools-git-repo-sh-tools-source-hash.txt https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/source-hash.txt
 curl -fL -o tools-git-repo-sh-tools-source.zip https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/source.zip
-curl -fL -o wtool-base-tools-dist.json https://github.com/allinkernel/wtool-base-tools/releases/download/ds_dev-2026-10-09/dist.json
-curl -fL -o wtool-base-tools-source-hash.txt https://github.com/allinkernel/wtool-base-tools/releases/download/ds_dev-2026-10-09/source-hash.txt
-curl -fL -o wtool-base-tools-source.zip https://github.com/allinkernel/wtool-base-tools/releases/download/ds_dev-2026-10-09/source.zip
 unzip -o os-ubuntu-source.zip
-
-unzip -o shell-oh-my-zsh-source.zip
 
 unzip -o shell-shell-rc-source.zip
 
@@ -142,8 +128,6 @@ unzip -o terminal-tmux-source.zip
 unzip -o tools-android_repack-source.zip
 
 unzip -o tools-git-repo-sh-tools-source.zip
-
-unzip -o wtool-base-tools-source.zip
 ```
 
 跑完 `~/self/wtool/` 就是一个完整的工作区。
@@ -157,9 +141,6 @@ $d = "$HOME\self"; New-Item -ItemType Directory -Force -Path $d | Out-Null; Set-
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-os-ubuntu/releases/download/ds_dev-2026-10-09/dist.json" -OutFile "os-ubuntu-dist.json"
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-os-ubuntu/releases/download/ds_dev-2026-10-09/source-hash.txt" -OutFile "os-ubuntu-source-hash.txt"
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-os-ubuntu/releases/download/ds_dev-2026-10-09/source.zip" -OutFile "os-ubuntu-source.zip"
-Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-ohmyzsh/releases/download/ds_dev-2026-10-09/dist.json" -OutFile "shell-oh-my-zsh-dist.json"
-Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-ohmyzsh/releases/download/ds_dev-2026-10-09/source-hash.txt" -OutFile "shell-oh-my-zsh-source-hash.txt"
-Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-ohmyzsh/releases/download/ds_dev-2026-10-09/source.zip" -OutFile "shell-oh-my-zsh-source.zip"
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-shell-rc/releases/download/ds_dev-2026-10-09/dist.json" -OutFile "shell-shell-rc-dist.json"
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-shell-rc/releases/download/ds_dev-2026-10-09/source-hash.txt" -OutFile "shell-shell-rc-source-hash.txt"
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-shell-rc/releases/download/ds_dev-2026-10-09/source.zip" -OutFile "shell-shell-rc-source.zip"
@@ -180,12 +161,7 @@ Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-android_repack/rele
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/dist.json" -OutFile "tools-git-repo-sh-tools-dist.json"
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/source-hash.txt" -OutFile "tools-git-repo-sh-tools-source-hash.txt"
 Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-repo/releases/download/ds_dev-2026-10-09/source.zip" -OutFile "tools-git-repo-sh-tools-source.zip"
-Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-base-tools/releases/download/ds_dev-2026-10-09/dist.json" -OutFile "wtool-base-tools-dist.json"
-Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-base-tools/releases/download/ds_dev-2026-10-09/source-hash.txt" -OutFile "wtool-base-tools-source-hash.txt"
-Invoke-WebRequest -Uri "https://github.com/allinkernel/wtool-base-tools/releases/download/ds_dev-2026-10-09/source.zip" -OutFile "wtool-base-tools-source.zip"
 Expand-Archive -Force -Path "os-ubuntu-source.zip" -DestinationPath "."
-
-Expand-Archive -Force -Path "shell-oh-my-zsh-source.zip" -DestinationPath "."
 
 Expand-Archive -Force -Path "shell-shell-rc-source.zip" -DestinationPath "."
 
@@ -199,8 +175,6 @@ Expand-Archive -Force -Path "terminal-tmux-source.zip" -DestinationPath "."
 Expand-Archive -Force -Path "tools-android_repack-source.zip" -DestinationPath "."
 
 Expand-Archive -Force -Path "tools-git-repo-sh-tools-source.zip" -DestinationPath "."
-
-Expand-Archive -Force -Path "wtool-base-tools-source.zip" -DestinationPath "."
 ```
 
 跑完 `$HOME\self\wtool` 就是一个完整的工作区。
