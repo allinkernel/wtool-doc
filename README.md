@@ -260,34 +260,33 @@ exec $SHELL && wtool check                         # 验收：应当说"一切�
 
 | 目标机器 | 下哪个 | 大小 | sha256（`sha256sum -c` 用同名 `.sha256`） | 包里 zsh 要求的最低 glibc |
 |---|---|---|---|---|
-| Ubuntu 22.04 | [`wtool-all-ubuntu22.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-22/wtool-all-ubuntu22.04.tar.gz) | 230,571,411 B | `59be2a8858d4d65ea9bad7fc3697f2c7bc4e61a60df455812041d38b4b895e29` | 2.34 |
-| Ubuntu 24.04 | [`wtool-all-ubuntu24.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-22/wtool-all-ubuntu24.04.tar.gz) | 230,571,380 B | `a703786555c74fd6cf109b7fc4f39a3dc47cb27aa9870a17817ee80a72eb6537` | 2.38 |
-| Ubuntu 26.04 | [`wtool-all-ubuntu26.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-22/wtool-all-ubuntu26.04.tar.gz) | 230,571,394 B | `7aaa290954b788621d1aa65e864e6d9f59bcdb8455f829ee2a298c09a9f13804` | 2.38 |
+| Ubuntu 22.04 | [`wtool-all-ubuntu22.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-22-r2/wtool-all-ubuntu22.04.tar.gz) | 213,965,298 B | `323690482702e195b9f610cb8010f174e4c33d2688b96e6e3ef1ec4ee92abd6e` | 2.34 |
+| Ubuntu 24.04 | [`wtool-all-ubuntu24.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-22-r2/wtool-all-ubuntu24.04.tar.gz) | 213,965,329 B | `cce5a320df5b4b3505a29f83794d8b953f9c1cf900e1a8159d5448779145c337` | 2.38 |
+| Ubuntu 26.04 | [`wtool-all-ubuntu26.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-22-r2/wtool-all-ubuntu26.04.tar.gz) | 213,965,314 B | `68d2d14bc864963c8cbba99e8e812131e9777f32f49c3e995872fe75c41d374f` | 2.38 |
 
 发布页（旁边有 `.sha256`，分卷时还会有 `check-hash*.sh`）：
-<https://github.com/allinkernel/wtool-doc/releases/tag/offline-2026-10-22>
+<https://github.com/allinkernel/wtool-doc/releases/tag/offline-2026-10-22-r2>
 
-> ⚠️ 上表是 **`offline-2026-10-22`** 那一版 —— 包 = 一份"**还没装任何项目**"的 `.wtool`
+> ⚠️ 上表是 **`offline-2026-10-22-r2`** 那一版 —— 包 = 一份"**还没装任何项目**"的 `.wtool`
 > （没有 `usr/`、没有 `var/`、没有 L1 链）。解开来 `wtool` 列出的全是「未安装」，
 > `wtool bootstrap` 才装起来。用法见上面 §2.2(a)。
 > 上一版 **`offline-2026-10-21`** 的包是"已经装好的"，**两版用法不一样，别混着用**。
 
-> #### 上一版（`offline-2026-10-21`）换了口径
+> #### 这一版（`offline-2026-10-22-r2`）的内容
 >
-> **整机包 = 工作区里所有"可发布"的项目**，不再等于"打包那台机器装过的项目"。
-> 上一版（`offline-2026-10-20`）只带了 `fzf` / `rg` / `fdfind` 三条静态命令，
-> 这一版带**全部 44 个** `tools/musl-bins/*`（含 `rg` / `fdfind` / `bat` /
-> `watchexec` / `zoxide` / `atuin` / `starship` / `yazi` / `zellij` …），
-> 外加 `shell/zsh`（**22.04 / 24.04 / 26.04 三套都在包里**，装机时按你的发行版自动挑）、
+> **整机包 = 工作区里所有"可发布"的项目**（不是"打包那台机器装过的项目"）：
+> **43 个** `tools/musl-bins/*`（2026-10-22 按用户口径**删掉了 `atuin`**：不装、不生成
+> shell 集成、不绑键；历史搜索改成 **bash 的 Ctrl-P = fzf**，zsh 的 Up 恢复原生
+> `up-line-or-history`，zsh 的 ^R 保持 fzf 默认），外加 `shell/zsh`
+> （**22.04 / 24.04 / 26.04 三套都在包里**，装机时按你的发行版自动挑）、
 > `os/ubuntu`、`wtool-base-tools`、`shell/shell-rc`、`shell/oh-my-zsh`、
 > `terminal/tmux`、`terminal/fzf`、`tools/git-repo-sh-tools`、`tools/android_repack`。
 > **不含** `dsh-conf` / `dsh-remote`（它们声明了 `<publish kind="none"/>`）。
 >
-> 所以包**大了很多**：大约 **216 MB / 7 个分卷（每卷 32 MB）**。下载要
-> `cat wtool-all-*.tar.gz.part-* > wtool-all.tar.gz` 再解开，或者直接点发布页上
-> 那 7 个分卷（`check-hash-ubuntu<版本>.sh` 会逐个校验）。
+> 所以包大约 **204 MB / 一份整包（不分卷）** —— 直接从发布页下
+> `wtool-all-ubuntu<版本>.tar.gz`，旁边就是 `.sha256`（`sha256sum -c` 过一遍再用）。
 >
-> **三份包的内容是一样的**（同一份源码 + 同一个打包动作 → 同一份内容），
+> **三份包的内容是一样的**（同一份源码 + 同一个打包动作 → 逐字节相同的产物），
 > 只有资产名和 zsh 那套"默认挑哪个发行版"的起始值不同 —— 装机时
 > `install.sh` 会按 `/etc/os-release` 把你本机那套 zsh 选出来。
 
@@ -315,16 +314,16 @@ exec $SHELL && wtool check                         # 验收：应当说"一切�
 
 | 项目 | 离线包 | 发布页 |
 |---|---|---|
-| `wtool-base-tools`（安装器种子包） | `wtool-base-tools.tar.gz` | <https://github.com/allinkernel/wtool-base-tools/releases/tag/offline-2026-10-22> |
-| `shell/zsh`（按发行版编的 zsh） | `release-offline.zip` | <https://github.com/allinkernel/wtool-zsh/releases/tag/offline-2026-10-22> |
-| `tools/musl-bins/*`（上游二进制工具，**一个仓库多个项目**） | **`<工具名>-release-offline.zip`**（例：`bat-release-offline.zip`、`jq-release-offline.zip`） | <https://github.com/allinkernel/wtool-musl-bins/releases/tag/offline-2026-10-22> |
-| `shell/shell-rc` | `source-offline.zip` | <https://github.com/allinkernel/wtool-shell-rc/releases/tag/offline-2026-10-22> |
-| `shell/oh-my-zsh` | `source-offline.zip` | <https://github.com/allinkernel/wtool-ohmyzsh/releases/tag/offline-2026-10-22> |
-| `terminal/tmux` | `source-offline.zip` | <https://github.com/allinkernel/wtool-tmux-config/releases/tag/offline-2026-10-22> |
-| `terminal/fzf` | `source-offline.zip` | <https://github.com/allinkernel/wtool-fzf-binary/releases/tag/offline-2026-10-22> |
-| `tools/git-repo-sh-tools` | `source-offline.zip` | <https://github.com/allinkernel/wtool-repo/releases/tag/offline-2026-10-22> |
-| `tools/android_repack` | `source-offline.zip` | <https://github.com/allinkernel/wtool-android_repack/releases/tag/offline-2026-10-22> |
-| `os/ubuntu` | `source-offline.zip` | <https://github.com/allinkernel/wtool-os-ubuntu/releases/tag/offline-2026-10-22> |
+| `wtool-base-tools`（安装器种子包） | `wtool-base-tools.tar.gz` | <https://github.com/allinkernel/wtool-base-tools/releases/tag/offline-2026-10-22-r2> |
+| `shell/zsh`（按发行版编的 zsh） | `release-offline.zip` | <https://github.com/allinkernel/wtool-zsh/releases/tag/offline-2026-10-22-r2> |
+| `tools/musl-bins/*`（上游二进制工具，**一个仓库多个项目**） | **`<工具名>-release-offline.zip`**（例：`bat-release-offline.zip`、`jq-release-offline.zip`） | <https://github.com/allinkernel/wtool-musl-bins/releases/tag/offline-2026-10-22-r2> |
+| `shell/shell-rc` | `source-offline.zip` | <https://github.com/allinkernel/wtool-shell-rc/releases/tag/offline-2026-10-22-r2> |
+| `shell/oh-my-zsh` | `source-offline.zip` | <https://github.com/allinkernel/wtool-ohmyzsh/releases/tag/offline-2026-10-22-r2> |
+| `terminal/tmux` | `source-offline.zip` | <https://github.com/allinkernel/wtool-tmux-config/releases/tag/offline-2026-10-22-r2> |
+| `terminal/fzf` | `source-offline.zip` | <https://github.com/allinkernel/wtool-fzf-binary/releases/tag/offline-2026-10-22-r2> |
+| `tools/git-repo-sh-tools` | `source-offline.zip` | <https://github.com/allinkernel/wtool-repo/releases/tag/offline-2026-10-22-r2> |
+| `tools/android_repack` | `source-offline.zip` | <https://github.com/allinkernel/wtool-android_repack/releases/tag/offline-2026-10-22-r2> |
+| `os/ubuntu` | `source-offline.zip` | <https://github.com/allinkernel/wtool-os-ubuntu/releases/tag/offline-2026-10-22-r2> |
 
 > `dsh-projects/dsh-conf` / `dsh-projects/dsh-remote` 声明了 `<publish kind="none"/>`
 > （不参与发布）—— 它们**没有**离线自足包，不要在这一族里找它们。
