@@ -2015,6 +2015,34 @@ wtool install tools/musl-bins/bat
 | `rg` | `ripgrep` | 递归搜索 | `rg pattern` |
 | `fdfind` | `fdfind` | find 替代 | `fdfind pattern` |
 
+### 工具截图
+
+| 命令 | 截图 | 命令 | 截图 |
+|---|---|---|---|
+| `bat` | <img src="img/bat-version.png" width="360"> | `eza` | <img src="img/eza-version.png" width="360"> |
+| `delta` | <img src="img/delta-version.png" width="360"> | `dust` | <img src="img/dust-version.png" width="360"> |
+| `duf` | <img src="img/duf-version.png" width="360"> | `procs` | <img src="img/procs-version.png" width="360"> |
+| `btm` | <img src="img/btm-version.png" width="360"> | `jq` | <img src="img/jq-version.png" width="360"> |
+| `gojq` | <img src="img/gojq-version.png" width="360"> | `yq` | <img src="img/yq-version.png" width="360"> |
+| `sd` | <img src="img/sd-version.png" width="360"> | `hyperfine` | <img src="img/hyperfine-version.png" width="360"> |
+| `just` | <img src="img/just-version.png" width="360"> | `scc` | <img src="img/scc-version.png" width="360"> |
+| `difft` | <img src="img/difft-version.png" width="360"> | `fclones` | <img src="img/fclones-version.png" width="360"> |
+| `shellcheck` | <img src="img/shellcheck-version.png" width="360"> | `shfmt` | <img src="img/shfmt-version.png" width="360"> |
+| `age` | <img src="img/age-version.png" width="360"> | `b3sum` | <img src="img/b3sum-version.png" width="360"> |
+| `glow` | <img src="img/glow-version.png" width="360"> | `xh` | <img src="img/xh-version.png" width="360"> |
+| `gping` | <img src="img/gping-version.png" width="360"> | `trip` | <img src="img/trip-version.png" width="360"> |
+| `yazi` | <img src="img/yazi-version.png" width="360"> | `zellij` | <img src="img/zellij-version.png" width="360"> |
+| `lazygit` | <img src="img/lazygit-version.png" width="360"> | `dive` | <img src="img/dive-version.png" width="360"> |
+| `fzf` | <img src="img/fzf-version.png" width="360"> | `zoxide` | <img src="img/zoxide-version.png" width="360"> |
+| `direnv` | <img src="img/direnv-version.png" width="360"> | `starship` | <img src="img/starship-version.png" width="360"> |
+| `navi` | <img src="img/navi-version.png" width="360"> | `rclone` | <img src="img/rclone-version.png" width="360"> |
+| `mlr` | <img src="img/mlr-version.png" width="360"> | `csvlens` | <img src="img/csvlens-version.png" width="360"> |
+| `watchexec` | <img src="img/watchexec-version.png" width="360"> | `lf` | <img src="img/lf-version.png" width="360"> |
+| `micro` | <img src="img/micro-version.png" width="360"> | `hexyl` | <img src="img/hexyl-version.png" width="360"> |
+| `qsv` | <img src="img/qsv-version.png" width="360"> | `rg` | <img src="img/rg-version.png" width="360"> |
+| `fdfind` | <img src="img/fdfind-version.png" width="360"> | | |
+
+
 ## 其它命令（`$WTOOL_HOME/usr/bin`）
 
 ### zsh
@@ -2161,34 +2189,6 @@ server 不认识的参数：--help（dsh-remote help）
 ![harness-remote --help](img/harness-remote-help.png)
 ![dsh-force-restart-dsh-remote --help](img/dsh-force-restart-help.png)
 ![dsh-web-run](img/dsh-web-run-help.png)
-
-### 工具截图
-
-| 命令 | 截图 | 命令 | 截图 |
-|---|---|---|---|
-| `bat` | <img src="img/bat-version.png" width="360"> | `eza` | <img src="img/eza-version.png" width="360"> |
-| `delta` | <img src="img/delta-version.png" width="360"> | `dust` | <img src="img/dust-version.png" width="360"> |
-| `duf` | <img src="img/duf-version.png" width="360"> | `procs` | <img src="img/procs-version.png" width="360"> |
-| `btm` | <img src="img/btm-version.png" width="360"> | `jq` | <img src="img/jq-version.png" width="360"> |
-| `gojq` | <img src="img/gojq-version.png" width="360"> | `yq` | <img src="img/yq-version.png" width="360"> |
-| `sd` | <img src="img/sd-version.png" width="360"> | `hyperfine` | <img src="img/hyperfine-version.png" width="360"> |
-| `just` | <img src="img/just-version.png" width="360"> | `scc` | <img src="img/scc-version.png" width="360"> |
-| `difft` | <img src="img/difft-version.png" width="360"> | `fclones` | <img src="img/fclones-version.png" width="360"> |
-| `shellcheck` | <img src="img/shellcheck-version.png" width="360"> | `shfmt` | <img src="img/shfmt-version.png" width="360"> |
-| `age` | <img src="img/age-version.png" width="360"> | `b3sum` | <img src="img/b3sum-version.png" width="360"> |
-| `glow` | <img src="img/glow-version.png" width="360"> | `xh` | <img src="img/xh-version.png" width="360"> |
-| `gping` | <img src="img/gping-version.png" width="360"> | `trip` | <img src="img/trip-version.png" width="360"> |
-| `yazi` | <img src="img/yazi-version.png" width="360"> | `zellij` | <img src="img/zellij-version.png" width="360"> |
-| `lazygit` | <img src="img/lazygit-version.png" width="360"> | `dive` | <img src="img/dive-version.png" width="360"> |
-| `fzf` | <img src="img/fzf-version.png" width="360"> | `zoxide` | <img src="img/zoxide-version.png" width="360"> |
-| `direnv` | <img src="img/direnv-version.png" width="360"> | `starship` | <img src="img/starship-version.png" width="360"> |
-| `navi` | <img src="img/navi-version.png" width="360"> | `rclone` | <img src="img/rclone-version.png" width="360"> |
-| `mlr` | <img src="img/mlr-version.png" width="360"> | `csvlens` | <img src="img/csvlens-version.png" width="360"> |
-| `watchexec` | <img src="img/watchexec-version.png" width="360"> | `lf` | <img src="img/lf-version.png" width="360"> |
-| `micro` | <img src="img/micro-version.png" width="360"> | `hexyl` | <img src="img/hexyl-version.png" width="360"> |
-| `qsv` | <img src="img/qsv-version.png" width="360"> | `rg` | <img src="img/rg-version.png" width="360"> |
-| `fdfind` | <img src="img/fdfind-version.png" width="360"> | | |
-
 ## 常见问题
 
 ### `wtool` 命令找不到
