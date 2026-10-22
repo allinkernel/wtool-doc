@@ -38,7 +38,15 @@ wtool bootstrap
 
 发布页：<https://github.com/allinkernel/wtool-doc/releases>（tag 形如 `offline-YYYY-MM-DD`）。
 
-按目标机的 Ubuntu 版本下 `wtool-all-ubuntu<版本>.tar.gz` 和同名 `.sha256`。拿不准就下 22.04 那份。
+当前版本：**`offline-2026-10-22-r3`**。
+
+| 目标机器 | 资产 | 大小 | sha256 |
+|---|---|---|---|
+| Ubuntu 22.04 | [`wtool-all-ubuntu22.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-22-r3/wtool-all-ubuntu22.04.tar.gz) | 213,994,758 B | `4694e279f5428bc33b3078e19387f6bf54f0ceedd47990ba002b754ccf637496` |
+| Ubuntu 24.04 | [`wtool-all-ubuntu24.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-22-r3/wtool-all-ubuntu24.04.tar.gz) | 213,994,739 B | `0d4ae5a2f33abcacf9ecb37499fcbd26137b7c967f13432f35a96d210ae684b3` |
+| Ubuntu 26.04 | [`wtool-all-ubuntu26.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-22-r3/wtool-all-ubuntu26.04.tar.gz) | 213,994,795 B | `96d2a7a4b284ea06e35807efbf5deba3854441b56ccc1ac3fe2401e6da6a6996` |
+
+三份包内容相同，按目标机的 Ubuntu 版本选；拿不准就下 22.04 那份，旁边就是同名 `.sha256`。
 
 ```bash
 cd ~
