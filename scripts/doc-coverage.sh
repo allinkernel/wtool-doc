@@ -1,27 +1,42 @@
 #!/bin/sh
-# doc-coverage.sh —— 从一台已 bootstrap 的机器收集"用户能用到的名字"，逐个对 tutorial.md。
+# doc-coverage.sh —— 从一台已 bootstrap 的机器收集"用户能用到的名字"，逐个对 wtool.md + tutorial.md。
 #
-#   sh scripts/doc-coverage.sh [tutorial.md]
+#   sh scripts/doc-coverage.sh [文档...]
 #
+# 不给文档就扫 wtool.md 和 tutorial.md；两份合起来覆盖全部名字。
 # 默认在 VM 上收集，可用 DOC_COVER_HOST 换机器：
 #   DOC_COVER_HOST=mindul@192.168.76.136 sh scripts/doc-coverage.sh
+# 只在本机收集（工作区 + ~/.wtool/usr/bin）：
+#   DOC_COVER_HOST=none sh scripts/doc-coverage.sh
 #
 # 收集：$WTOOL_HOME/usr/bin 下的可执行名、zsh/bash 的 custom 函数与别名、
 #       `wtool _complete` 的子命令。custom = 完整 env 减去只加载 oh-my-zsh 的基线。
-# 比对：名字必须出现在 tutorial.md 的 H3 标题，或表格第一列。
+# 比对：名字必须出现在任一份文档的 H3 标题，或表格第一列。
 # 退出码：0 = 全部覆盖；1 = 有未覆盖；2 = 收集失败。
 set -eu
 
 HOST=${DOC_COVER_HOST:-mindul@192.168.76.136}
-DOC=${1:-tutorial.md}
 here=$(cd -- "$(dirname -- "$0")/.." && pwd)
-DOC=$here/${DOC#"$here"/}
+
+if [ $# -eq 0 ]; then
+    set -- wtool.md tutorial.md
+fi
 
 tmp=$(mktemp -d "${TMPDIR:-/tmp}/wtool-doc-cover.XXXXXX")
 trap 'rm -rf -- "$tmp"' EXIT INT TERM
 inv=$tmp/inventory.txt
+docs=$tmp/docs.txt
+: > "$inv"
+: > "$docs"
+for d in "$@"; do
+    case $d in /*) ;; *) d=$here/$d ;; esac
+    printf '%s\n' "$d" >> "$docs"
+done
 
-ssh -o BatchMode=yes -o ConnectTimeout=10 "$HOST" 'sh -s' > "$inv" <<'REMOTE' || {
+if [ "$HOST" = none ]; then
+    echo "doc-coverage: DOC_COVER_HOST=none，只在本机收集" >&2
+else
+    ssh -o BatchMode=yes -o ConnectTimeout=10 "$HOST" 'sh -s' > "$inv" <<'REMOTE' || {
 set -u
 WH=$HOME/.wtool
 tmp=$(mktemp -d "${TMPDIR:-/tmp}/wtool-doc-cover-remote.XXXXXX")
@@ -69,9 +84,10 @@ env -i HOME=$HOME PATH=$WH/wtool/wtool-base-tools/bin:$WH/usr/bin:/usr/bin:/bin 
     WTOOL_HOME=$WH WTOOL_STATE=$WH/var WTOOL_PREFIX=$WH/usr \
     "$WH/wtool/wtool-base-tools/bin/wtool" _complete '' 2>/dev/null | sort -u
 REMOTE
-    echo "doc-coverage: 收集失败（$HOST）；用 DOC_COVER_HOST 指定一台已 bootstrap 的机器" >&2
+    echo "doc-coverage: 收集失败（$HOST）；用 DOC_COVER_HOST 指定一台已 bootstrap 的机器，或 DOC_COVER_HOST=none 只在本机收集" >&2
     exit 2
 }
+fi
 
 # 本机（工作区）也收集一份：VM 上 /usr/bin 可能被清空，或没装 dsh 那一族。
 # 合并进同一份 inventory，取并集。
@@ -163,37 +179,43 @@ fi
 
 local_inventory >> "$inv"
 
-# tutorial 里认可的名字：H3 标题 + 表格第一列。
-python3 - "$DOC" "$inv" <<'PY'
-import re, sys
+# 文档里认可的名字：H3 标题 + 表格第一列（几份文档取并集）。
+python3 - "$docs" "$inv" <<'PY'
+import os, re, sys
 
-doc, inv = sys.argv[1], sys.argv[2]
+doclist, inv = sys.argv[1], sys.argv[2]
+with open(doclist, encoding="utf-8") as fh:
+    docs = [l.strip() for l in fh if l.strip()]
+
 have = set()
-for line in open(doc, encoding="utf-8"):
-    s = line.strip()
-    if s.startswith("### "):
-        t = s[4:].strip().strip("`")
-        have.add(t)
-        if t.startswith("wtool "):
-            have.add(t[6:])
-    elif s.startswith("|"):
-        cells = [c.strip().strip("`") for c in s.strip("|").split("|")]
-        if cells:
-            have.add(cells[0])
-            # 也收 "| `名字` |" 这种首列
-            m = re.match(r"^`([^`]+)`", cells[0])
-            if m:
-                have.add(m.group(1))
+for doc in docs:
+    with open(doc, encoding="utf-8") as fh:
+        for line in fh:
+            s = line.strip()
+            if s.startswith("### "):
+                t = s[4:].strip().strip("`")
+                have.add(t)
+                if t.startswith("wtool "):
+                    have.add(t[6:])
+            elif s.startswith("|"):
+                cells = [c.strip().strip("`") for c in s.strip("|").split("|")]
+                if cells:
+                    have.add(cells[0])
+                    # 也收 "| `名字` |" 这种首列
+                    m = re.match(r"^`([^`]+)`", cells[0])
+                    if m:
+                        have.add(m.group(1))
 
 section = ""
 items = []
-for line in open(inv, encoding="utf-8"):
-    s = line.rstrip("\n")
-    if s.startswith("# "):
-        section = s[2:]
-        continue
-    if s.strip():
-        items.append((section, s.strip()))
+with open(inv, encoding="utf-8") as fh:
+    for line in fh:
+        s = line.rstrip("\n")
+        if s.startswith("# "):
+            section = s[2:]
+            continue
+        if s.strip():
+            items.append((section, s.strip()))
 
 missing = []
 seen = set()
@@ -206,6 +228,7 @@ for sec, name in items:
     if name not in have:
         missing.append((sec, name))
 
+print("扫描 %s" % " ".join(os.path.basename(d) for d in docs))
 for sec, name in missing:
     print("未覆盖：%s（%s）" % (name, sec))
 print("检查 %d 个名字：已覆盖 %d，未覆盖 %d" % (len(seen), len(seen) - len(missing), len(missing)))
