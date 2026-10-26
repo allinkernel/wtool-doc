@@ -38,13 +38,13 @@ wtool bootstrap
 
 发布页：<https://github.com/allinkernel/wtool-doc/releases>（tag 形如 `offline-YYYY-MM-DD`）。
 
-当前版本：**`offline-2026-10-22-r3`**。
+当前版本：**`offline-2026-10-26`**。
 
 | 目标机器 | 资产 | 大小 | sha256 |
 |---|---|---|---|
-| Ubuntu 22.04 | [`wtool-all-ubuntu22.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-22-r3/wtool-all-ubuntu22.04.tar.gz) | 213,994,758 B | `4694e279f5428bc33b3078e19387f6bf54f0ceedd47990ba002b754ccf637496` |
-| Ubuntu 24.04 | [`wtool-all-ubuntu24.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-22-r3/wtool-all-ubuntu24.04.tar.gz) | 213,994,739 B | `0d4ae5a2f33abcacf9ecb37499fcbd26137b7c967f13432f35a96d210ae684b3` |
-| Ubuntu 26.04 | [`wtool-all-ubuntu26.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-22-r3/wtool-all-ubuntu26.04.tar.gz) | 213,994,795 B | `96d2a7a4b284ea06e35807efbf5deba3854441b56ccc1ac3fe2401e6da6a6996` |
+| Ubuntu 22.04 | [`wtool-all-ubuntu22.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-26/wtool-all-ubuntu22.04.tar.gz) | 214,003,872 B | `9cec625d0580fd87f0e8ca2cb3c9b611a49b274ae93df65b9cf88207e1c2ce69` |
+| Ubuntu 24.04 | [`wtool-all-ubuntu24.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-26/wtool-all-ubuntu24.04.tar.gz) | 214,003,855 B | `64c95ecdd4a37923955e4ab411ea5e33af07a5903cdfa687950710317a6b39c6` |
+| Ubuntu 26.04 | [`wtool-all-ubuntu26.04.tar.gz`](https://github.com/allinkernel/wtool-doc/releases/download/offline-2026-10-26/wtool-all-ubuntu26.04.tar.gz) | 214,003,849 B | `446b4b3b5650c92cf1d1da347cd2ea6045c7ee144bd9b2f84f06c64f1a9d9d06` |
 
 三份包内容相同，按目标机的 Ubuntu 版本选；拿不准就下 22.04 那份，旁边就是同名 `.sha256`。
 
