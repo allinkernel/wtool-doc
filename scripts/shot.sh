@@ -46,4 +46,18 @@ sed -e '/^Script started on/d' -e '/^Script done on/d' \
 rm -f "$scratch/$name.body"
 
 python3 "$root/scripts/term-shot.py" "$transcript" "$out"
-echo "  截图: $out   （转录: $transcript）"
+
+# 颜色判据：只数**命令输出**里的 SGR（第一行是我们自己画的绿色 ❯，不算）。
+# 有 SGR 的命令必须是彩色图（%k > 100）；没有 SGR 的命令本身就不输出颜色。
+sgr=$(tail -n +2 "$transcript" | grep -aoE "$(printf '\033\\[[0-9;]*m')" | wc -l | tr -d ' ')
+colors=$(identify -format '%k' "$out" 2>/dev/null || echo 0)
+colors=${colors:-0}
+printf '%s\t%s\t%s\n' "$name" "$sgr" "$colors" >> "$scratch/colors.tsv"
+if [ "$sgr" -gt 0 ] && [ "$colors" -le 100 ]; then
+    echo "  颜色判据失败: $name（SGR $sgr 条，但 PNG 只有 $colors 色）" >&2
+    exit 1
+fi
+if [ "$sgr" -eq 0 ]; then
+    echo "  该命令本身不输出颜色（$name，PNG $colors 色）"
+fi
+echo "  截图: $out   （转录: $transcript，SGR $sgr，颜色 $colors）"
