@@ -19,7 +19,7 @@ HOST=${DOC_COVER_HOST:-mindul@192.168.76.136}
 here=$(cd -- "$(dirname -- "$0")/.." && pwd)
 
 if [ $# -eq 0 ]; then
-    set -- wtool.md tutorial.md
+    set -- wtool.md tutorial.md dsh-tutorial.md
 fi
 
 tmp=$(mktemp -d "${TMPDIR:-/tmp}/wtool-doc-cover.XXXXXX")

@@ -5,3 +5,4 @@
 - [安装](install.md)
     - [wtool](wtool.md)
 - [命令与工具手册](tutorial.md)
+    - [dsh 命令](dsh-tutorial.md)

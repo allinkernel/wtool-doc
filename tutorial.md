@@ -1,9 +1,9 @@
 # 工具与环境命令手册
 
-这一页是装进来的工具和环境提供的命令；`wtool` 命令本身见 [wtool.md](wtool.md)。
-安装见 [install.md](install.md)。
+这一页是**装进来的工具和环境**提供的命令；`wtool` 命令本身见 [wtool.md](wtool.md)，
+dsh 那组见 [dsh-tutorial.md](dsh-tutorial.md)，安装见 [install.md](install.md)。
 
-每条命令写三块：功能、参数、运行结果。
+每条命令只写：功能、最常用的几条用法、一张真终端截图。
 
 ## repo 相关命令
 
@@ -13,15 +13,9 @@
 
 **功能**：跳到 repo 工作区根目录。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ cd tools/git-repo-sh-tools
-$ cs
-$ pwd
-/home/you/self/wtool
+```sh
+cs                      # 任意子目录里都能跳回工作区根
+cs && pwd               # 确认落到哪
 ```
 
 ![cs](img/cs.png)
@@ -30,13 +24,8 @@ $ pwd
 
 **功能**：打印 repo 工作区根目录，不跳转。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ css
-/home/you/self/wtool
+```sh
+css
 ```
 
 ![css](img/css.png)
@@ -45,15 +34,8 @@ $ css
 
 **功能**：跳到当前项目（最近的 `.git`）根目录。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ cd tools/git-repo-sh-tools/tests
-$ ct
-$ pwd
-/home/you/self/wtool/tools/git-repo-sh-tools
+```sh
+ct                      # 在 tools/x/src 里跳到 tools/x
 ```
 
 ![ct](img/ct.png)
@@ -62,13 +44,8 @@ $ pwd
 
 **功能**：打印当前项目根目录，不跳转。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ ctt
-/home/you/self/wtool/tools/git-repo-sh-tools
+```sh
+ctt
 ```
 
 ![ctt](img/ctt.png)
@@ -77,58 +54,40 @@ $ ctt
 
 **功能**：打印当前项目在清单里的相对路径。
 
-**参数**：无。传参数会报错。
-
-**运行结果**：
-
-```text
-$ cnp
-tools/git-repo-sh-tools
+```sh
+cnp                     # 如 tools/git-repo-sh-tools
 ```
+
+**提示**：传参数会报错 —— 它只认"当前目录属于哪个项目"。
 
 ![cnp](img/cnp.png)
 
 ### cnn
 
-**功能**：打印当前项目在清单里的仓库名。
+**功能**：打印清单里当前项目的仓库名。
 
-**参数**：无。传参数会报错。
-
-**运行结果**：
-
-```text
-$ cnn
-allinkernel/wtool-repo.git
+```sh
+cnn                     # 如 allinkernel/wtool-repo.git
 ```
 
 ![cnn](img/cnn.png)
 
 ### cnb
 
-**功能**：打印清单里给当前项目声明的分支。
+**功能**：打印清单里当前项目的分支。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ cnb
-main
+```sh
+cnb                     # 如 main
 ```
 
 ![cnb](img/cnb.png)
 
 ### cnr
 
-**功能**：打印清单里给当前项目声明的 remote 名。
+**功能**：打印清单里当前项目的 remote 名。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ cnr
-github
+```sh
+cnr                     # 如 github
 ```
 
 ![cnr](img/cnr.png)
@@ -137,249 +96,136 @@ github
 
 **功能**：跳到 `.repo/manifests`。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ cm
-$ pwd
-/home/you/self/wtool/.repo/manifests
+```sh
+cm && pwd
 ```
 
 ![cm](img/cm.png)
 
 ### cmm
 
-**功能**：打印 `.repo/manifests` 路径。
+**功能**：打印 `.repo/manifests` 的路径，不跳转。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ cmm
-/home/you/self/wtool/.repo/manifests
+```sh
+cmm
 ```
 
 ![cmm](img/cmm.png)
 
 ### cdd
 
-**功能**：跳转：项目名、路径、现存文件/目录、gerrit 提交编号、一串点。
+**功能**：跳到某个项目；`-<编号>` 直接跳到某个 gerrit change 所属的项目。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `TARGET` | 只收一个。项目名 / 清单路径 / 现存路径 / `-N` 或 `N`（gerrit 编号）/ `..`、`...`（往上跳点数减一层） |
-
-**运行结果**：
-
-```text
-$ cdd terminal/tmux
-$ pwd
-/home/you/self/wtool/terminal/tmux
+```sh
+cdd terminal/tmux            # 按项目名 / 路径跳
+cdd -1                      # 跳到 change 1 所属的项目
+cdd no-such-project          # 报错并提示怎么列项目
 ```
 
-```text
-$ cdd -1234                  # 跳到 change 1234 所属项目
-$ cdd ...                    # 往上跳两层
-```
-
-成功时无输出。找不到时：
-
-```text
-$ cdd no-such-project
-cdd: 清单里没有 'no-such-project' 这个项目名或路径
-     看看都有什么：/home/you/self/wtool/tools/git-repo-sh-tools/my_repo.py list --root /home/you/self/wtool
-```
+**提示**：change 所属项目不在当前清单里时会报错（这时先 `repo sync`）。
 
 ![cdd](img/cdd.png)
-![cdd 失败](img/cdd-fail.png)
 ![cdd -N](img/cdd-dash.png)
+![cdd 失败](img/cdd-fail.png)
 ![cdd -N 失败](img/cdd-dash-fail.png)
 
 ### cdd_path
 
-**功能**：打印项目名对应的绝对路径，不跳转。
+**功能**：只打印项目路径，不跳转。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<项目名\|路径>` | 一个 |
-
-**运行结果**：
-
-```text
-$ cdd_path terminal/tmux
-/home/you/self/wtool/terminal/tmux
+```sh
+cdd_path terminal/tmux
 ```
 
 ![cdd_path](img/cdd-path.png)
 
 ### rs
 
-**功能**：生成当前清单快照，然后 `repo sync` 到这份快照。
+**功能**：生成当前清单快照，再 `repo sync` 到这份快照。
 
-**参数**：无。
-
-**运行结果**：直接执行下面两条，输出就是 `repo` 的输出。
-
-```text
-repo manifest -o /tmp/tmp.XXXXXX.xml
-repo sync -c -j32 --force-sync --force-checkout -d -m /tmp/tmp.XXXXXX.xml
+```sh
+rs                      # 等价于 repo manifest -o /tmp/tmp.XXX.xml + repo sync -c … -m 那份
 ```
 
-![rs](img/rs.png)
+**注意**：这条**真的会跑 `repo sync --force-sync`**（按清单重写工作区里的项目）。
+本页不给它截图 —— 截图那次就是真跑了，把 repo 客户端就地重写过一次
+（教训见 `harness/docs/hazards.md` H39）。
 
 ### rscur
 
-**功能**：只同步当前目录所属的项目；不在项目根时同步该目录下的子项目。执行前询问。
+**功能**：同上，但先用当前清单（不走快照），并让你确认一次。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-==>repo sync -c <项目>
-total N repos in <相对路径>, execute it? ({ENTER/Y/y}/{N/n/*})
+```sh
+rscur                   # 回车/Y 执行，N/其它 退出
+printf 'n\n' | rscur    # 非交互：直接不执行
 ```
 
-![rscur](img/rscur.png)
+**注意**：同上，真的会跑 `repo sync`，不截图。
 
 ### wninja
 
-**功能**：用当前项目的 `out/` 里的 ninja 文件跑 ninja。仅 zsh 可用。参数原样传给 ninja。
+**功能**：在 Android 源码树里用 `ninja` 增量编译（带 `-j` 和常用参数）。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<ninja 参数>...` | 全部透传给 ninja |
-
-**运行结果**：
-
-```text
-$ wninja
-Error: No ninja build file found.
+```sh
+wninja                  # 在 Android 源码树里增量编译
 ```
 
-![wninja](img/wninja.png)
+**注意**：这条会**真的调 `ninja` 构建**（改 `out/`），本页不截图。
 
 ### gb
 
-**功能**：打印当前项目可用的 push / pull / fetch 命令，以及 remote、branch。
+**功能**：打印当前项目的 remote / 分支，以及对应的 push、pull、fetch 命令。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ gb
-git push github HEAD:refs/for/main
-git push github HEAD:main
-git pull github main --unshallow
-git pull github main
-git fetch github main --unshallow
-git fetch github main
-remote: github
-branch: main
-github	https://github.com/allinkernel/wtool-repo.git (fetch)
-github	https://github.com/allinkernel/wtool-repo.git (push)
+```sh
+gb
 ```
 
 ![gb](img/gb.png)
 
 ### gpun
 
-**功能**：执行 `gb` 打印的 `git pull <remote> <branch> --unshallow`。
+**功能**：`git pull <remote> <branch> --depth=N`（浅拉，省时间）。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| 无 | 补全历史 |
-| `-N` / `--depth=N` | 只拉 N 层，把 `--unshallow` 换成 `--depth=N` |
-
-**运行结果**：
-
-```text
-$ gpun
-gpun: 执行 git pull github main --unshallow
-```
-
-```text
-$ gpun -30
-gpun: 执行 git pull github main --depth=30
+```sh
+gpun -30                # 拉最近 30 个提交
 ```
 
 ![gpun](img/gpun.png)
 
 ### gbb
 
-**功能**：从 `gb` 的输出里挑直接 push 那条并执行。
+**功能**：只打印 push / pull / fetch 那几条命令，不执行。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ gbb
-git push github HEAD:main
+```sh
+gbb
 ```
 
 ![gbb](img/gbb.png)
 
 ## gerrit 相关命令
 
-服务器地址用环境变量或配置文件给：
+服务器地址用环境变量或配置文件给（`<repo 根>/.gerrit/client.conf` 或 `~/.wtool/gerrit.conf`）：
 
-```bash
+```sh
 export WTOOL_GERRIT_HOST=user@host:29418
 ```
 
-```text
-# <repo 根>/.gerrit/client.conf 或 ~/.wtool/gerrit.conf
-host=gerrit.company.com
-port=29418
-user=yourname
-sshkey=~/.ssh/id_rsa
-```
+本页这几张图是对着一台**真 gerrit 服务器**（`http://127.0.0.1:8080`，ssh 29418）和盘上
+**真 AOSP 12 `packages/apps/Settings`** 跑的，change 1 / 2（ps1、ps2）/ 3 都是真提交。
 
 ### ggcp
 
-**功能**：把 gerrit 上的提交抓回本地，切到对应项目，cherry-pick。
+**功能**：把 gerrit 上的 patchset 抓回本地，切到对应项目，cherry-pick。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<编号>` | 一个或多个；逗号或空格分隔，如 `1234`、`1,2,3`、`1 2 3` |
-| `<链接>` | `https://host/#/c/1234`、`https://host/c/proj/+/1234` |
-| `<Change-Id>` | `I` 加 40 位十六进制；先查 gerrit，打表后逐个询问 |
-| `1234/2` | 直接指定 patchset |
-| `-p <n>` | 指定 patchset |
-| `-y` / `--yes` | 全都打，不再问 |
-| `-n` / `--no` | 全都跳过 |
-
-**运行结果**：
-
-```text
-$ ggcp 1,2
-1 个仓库 / 2 笔提交 / 成功 2 / 失败 0
-项目名           项目路径  提交 id       patchset  结果说明
----------------  --------  ------------  --------  --------
-platform/mylib   mylib     a1b2c3d4e5f6  1         成功
-platform/mylib   mylib     b2c3d4e5f6a1  2         成功
+```sh
+ggcp 1                    # 打 change 1 的最新 patchset
+ggcp 2/2                  # 指定 patchset 2
+ggcp 1,3                  # 一次打多笔（逗号或空格分隔）
+ggcp -y 1 3               # 全都打，不再逐笔问
 ```
 
-同一 Change-Id 已在本地历史时，不抓、不打：
-
-```text
-此 Change-Id 已在本地历史（提交 a1b2c3d4e5f6，patchset 1）→ 先 ggrvt 1234 回退，再打 1234/2
-```
+**提示**：同 Change-Id 已在本地历史时会拦下来 —— 先 `ggrvt <编号>` 回退，再打新 patchset。
+结果表按代码本身不上色（上了 ANSI 会破坏中文对齐），提示符是彩色的就够了。
 
 ![ggcp 成功](img/ggcp-ok.png)
 ![ggcp 失败](img/ggcp-fail.png)
@@ -390,22 +236,11 @@ platform/mylib   mylib     b2c3d4e5f6a1  2         成功
 
 **功能**：把本地历史里同 Change-Id 的提交 revert 掉。只改本地。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<编号>` | gerrit change 编号 |
-| `<链接>` | gerrit 链接 |
-| `<Change-Id>` | `I` 加 40 位十六进制 |
-
-不接受 patchset：`ggrvt 1234/2` 报错。
-
-**运行结果**：
-
-```text
-$ ggrvt 1234
-已回退 a1b2c3d4e5f6（change 1234, patchset 2）→ 现在可以 ggcp 1234/2
+```sh
+ggrvt 2                   # 回退 change 2 那一笔
 ```
+
+**提示**：不接受 patchset，`ggrvt 2/2` 会报错；本地没打过这笔就报「本地历史里没有」。
 
 ![ggrvt 成功](img/ggrvt-ok.png)
 ![ggrvt 失败](img/ggrvt-fail.png)
@@ -414,46 +249,19 @@ $ ggrvt 1234
 
 **功能**：查一个 change 有没有 +2、有没有 merged。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<change>` | 编号、链接或 Change-Id |
-
-退出码：0 = 已 merged，1 = 还没，2 = 查不到。
-
-**运行结果**：
-
-```text
-$ gchk 1234
-change 1234  [NEW]
-  project : platform/mylib
-  branch  : main
-  subject : lab: change one (ps1)
-  patchset: 2  a1b2c3d4e5f6
-  投票    : Code-Review +2 by alice
-  链接    : https://gerrit.example.com/c/platform/mylib/+/1234
-  => 已 +2（来自 alice），但还没 merged
+```sh
+gchk 1                    # 退出码：0 已 merged，1 还没，2 查不到
 ```
 
 ![gchk](img/gchk.png)
 
 ### gq
 
-**功能**：列出一个 change 的摘要。
+**功能**：列出一个 change 的摘要（编号 / 状态 / 项目 / 主题）。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<change>` | 编号、链接或 Change-Id |
-| `-r` / `--raw` | 输出原始 JSON |
-
-**运行结果**：
-
-```text
-$ gq 1234
-1234	NEW	platform/mylib	lab: change one
+```sh
+gq 1
+gq 1 -r                   # 输出原始 JSON
 ```
 
 ![gq](img/gq.png)
@@ -462,18 +270,9 @@ $ gq 1234
 
 **功能**：把当前 HEAD 推到 `refs/for/<清单声明的分支>`。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `[remote]` | 默认 `polygerrit` |
-| `[额外参数]...` | 透传给 `git push` |
-
-**运行结果**：
-
-```text
-$ gpush
-gpush: git push polygerrit HEAD:refs/for/main
+```sh
+gpush gerrit              # 推到 gerrit 的 refs/for/main（remote 名按仓库实际情况）
+gpush origin              # 换 remote
 ```
 
 ![gpush](img/gpush.png)
@@ -482,20 +281,11 @@ gpush: git push polygerrit HEAD:refs/for/main
 
 **功能**：从远端抓一个分支 / tag / commit，然后切过去。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<分支\|tag\|commit>` | 一个，不能以 `-` 开头 |
-
-工作树有本地改动时拒绝执行。
-
-**运行结果**：
-
-```text
-$ ggco main
-ggco: /home/you/self/wtool/tools/git-repo-sh-tools 现在在 main @ 1a2b3c4（来自 github main）
+```sh
+ggco main                 # 抓远端 main 再切
 ```
+
+**提示**：工作树有本地改动时拒绝执行。
 
 ![ggco](img/ggco.png)
 
@@ -506,8 +296,6 @@ ggco: /home/you/self/wtool/tools/git-repo-sh-tools 现在在 main @ 1a2b3c4（�
 ### 别名
 
 **功能**：常用命令缩写。
-
-**参数**：无。
 
 | 别名 | 实际命令 |
 |---|---|
@@ -528,14 +316,8 @@ ggco: /home/you/self/wtool/tools/git-repo-sh-tools 现在在 main @ 1a2b3c4（�
 
 **功能**：跳到含 `.repo` 的工作区根。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ cw
-$ pwd
-/home/you/self/wtool
+```sh
+cw && pwd
 ```
 
 ![cw](img/cw.png)
@@ -544,17 +326,8 @@ $ pwd
 
 **功能**：`git branch -a`，有 `batcat` 时用 `batcat` 分页。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ gba
-* ds_dev
-  main
-  remotes/github/ds_dev
-  remotes/github/main
-  remotes/m/wtool -> github/main
+```sh
+gba
 ```
 
 ![gba](img/gba.png)
@@ -563,14 +336,8 @@ $ gba
 
 **功能**：打印当前目录，同时记到 `/tmp/wsw-temp-pwd-id-<uid>`。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ cd /tmp
-$ pwd
-/tmp
+```sh
+cd /tmp && pwd            # 记下 /tmp
 ```
 
 ![pwd](img/pwd.png)
@@ -579,59 +346,38 @@ $ pwd
 
 **功能**：回到 `pwd` 上次记下的目录。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ pdd
-$ pwd
-/tmp
+```sh
+pdd && pwd
 ```
 
 ![pdd](img/pdd.png)
 
 ### pss
 
-**功能**：打印 `pwd` 上次记下的目录。
+**功能**：打印 `pwd` 上次记下的目录，不跳转。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ pss
-/tmp
+```sh
+pss
 ```
 
 ![pss](img/pss.png)
 
 ### this_is_wsl
 
-**功能**：判断是不是 WSL。WSL 上 rc=0。
+**功能**：判断是不是 WSL（是则 rc=0）。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ this_is_wsl; echo $?
-0
+```sh
+this_is_wsl; echo $?      # WSL 上 0
 ```
 
 ![this_is_wsl](img/this-is-wsl.png)
 
 ### this_is_not_wsl
 
-**功能**：判断是不是非 WSL。非 WSL 上 rc=0。
+**功能**：判断是不是非 WSL（非 WSL 上 rc=0）。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ this_is_not_wsl; echo $?
-1
+```sh
+this_is_not_wsl; echo $?  # 非 WSL 上 0
 ```
 
 ![this_is_not_wsl](img/this-is-not-wsl.png)
@@ -640,26 +386,12 @@ $ this_is_not_wsl; echo $?
 
 **功能**：把当前目录或给定路径翻译成 mac / Windows / scp / WSL / Linux 可用的路径，打一张表。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| 无 | 用当前目录 |
-| `<路径>` | 用给定路径 |
-
-没有 `WIN_IP` 时对应行显示「请设置 WIN_IP」。
-
-**运行结果**：
-
-```text
-$ win
-usage  path
-mac    请设置 WIN_IP
-win    请设置 WIN_IP
-scp    请设置 WIN_IP
-wsl    \\wsl.localhost\mindul-ubuntu14\tmp
-linux  请设置 WIN_IP
+```sh
+win                       # 用当前目录
+win /tmp                  # 用给定路径
 ```
+
+**提示**：没设 `WIN_IP` 时对应那几行显示「请设置 WIN_IP」。
 
 ![win](img/win.png)
 
@@ -667,45 +399,22 @@ linux  请设置 WIN_IP
 
 **功能**：在 Windows 侧打开文件、目录或程序。仅 WSL。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<路径\|程序名>` | 路径会先解析软链；裸词原样交给 Windows |
-
-**运行结果**：
-
-```text
-$ start /no/such/path
-start: 路径不存在：/no/such/path
+```sh
+start .                   # 打开当前目录
+start README.md           # 用默认程序打开
 ```
 
-非 WSL：
-
-```text
-$ start .
-only wsl support this
-```
+**提示**：非 WSL 上打印 `only wsl support this`。
 
 ![start 失败](img/start-fail.png)
 
 ### proxy_on
 
-**功能**：导出 `http_proxy` / `https_proxy` / `all_proxy` 及其大写变量，并补 `no_proxy`。
+**功能**：导出 `http_proxy` / `https_proxy` / `all_proxy`（大小写都设）并补 `no_proxy`。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<IP>` | 不给就用 `$PROXY_IP`；非交互时必填 |
-| `[端口]` | 不给就用 `$PROXY_PORT`，默认 7897 |
-
-**运行结果**：
-
-```text
-$ proxy_on 127.0.0.1 7897
-Proxy ON  http://127.0.0.1:7897  (all_proxy=socks5://127.0.0.1:7897)
-          no_proxy=localhost,127.0.0.1,::1,.local
+```sh
+proxy_on 127.0.0.1 7897   # 给 IP 和端口
+proxy_on                  # 用 $PROXY_IP / $PROXY_PORT（非交互时必填）
 ```
 
 ![proxy_on](img/proxy-on.png)
@@ -714,13 +423,8 @@ Proxy ON  http://127.0.0.1:7897  (all_proxy=socks5://127.0.0.1:7897)
 
 **功能**：清除代理变量，恢复原来的 `no_proxy`。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ proxy_off
-Proxy OFF（代理变量已清除；PROXY_IP/PROXY_PORT 留着，下次 proxy_on 不用再问）
+```sh
+proxy_off
 ```
 
 ![proxy_off](img/proxy-off.png)
@@ -729,29 +433,14 @@ Proxy OFF（代理变量已清除；PROXY_IP/PROXY_PORT 留着，下次 proxy_on
 
 **功能**：按构建目标名搜索 `Android.bp`、`Android.mk` 和 Makefile。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<名字>` | 精确匹配目标名 |
-| `-i` / `--ignore-case` | 去 `_` 后按子串模糊匹配 |
-| `-e <名字>` | 多名字查询，可重复 |
-| `-t bp\|mk\|make` | 只搜某类文件 |
-| `-A/-B/-C <n>` | 上下文行数 |
-| `-l` / `--files` | 只打印文件路径 |
-| `-c` / `--count` | 打印每个文件的命中条数 |
-| `-m <n>` | 全局最多输出 n 条 |
-| `--color[=WHEN]` | `auto` / `always` / `never` |
-| `-v` / `--version` | 版本和搜索后端 |
-
-环境变量：`WRG_SEARCH=auto|rg|fd|find`、`WRG_COLOR=auto|always|never`、`NO_COLOR`。
-
-**运行结果**：
-
-```text
-$ wrg -v
-wrg 1.0（后端 rg）
+```sh
+wrg libfoo                # 精确匹配目标名
+wrg -i FooBar             # 去 _ 后子串模糊匹配
+wrg -e a -e b -t bp       # 多名字，只搜 Android.bp
+wrg -v                    # 版本和后端
 ```
+
+**提示**：后端可用 `WRG_SEARCH=auto|rg|fd|find` 指定。
 
 ![wrg -v](img/wrg.png)
 
@@ -759,136 +448,48 @@ wrg 1.0（后端 rg）
 
 **功能**：加载 oh-my-zsh，主题 `ys`，插件 `git`。
 
-**参数**：无。
-
-**运行结果**：交互式 zsh 里提示符为主题 `ys` 的样式。
-
-```text
-ZSH_THEME="ys"
-plugins=(git)
-source $ZSH/oh-my-zsh.sh
+```sh
+echo $ZSH_THEME          # ys
+echo $ZSH                # oh-my-zsh 的安装位置
 ```
 
 ![oh-my-zsh 主题](img/oh-my-zsh.png)
 
 ### z
 
-**功能**：zoxide 的跳目录函数。
+**功能**：zoxide 的跳目录函数（按访问频率）。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<目录片段>` | 跳到匹配度最高的目录 |
-
-**运行结果**：
-
-```text
-$ z wtool && pwd
-/home/you/self/wtool
+```sh
+z wtool                   # 跳到最常去的名字里带 wtool 的目录
+z wtool && pwd
 ```
 
 ![z](img/z.png)
 
 ### zi
 
-**功能**：zoxide 的交互式选择目录函数。
+**功能**：zoxide 的交互式选择（fzf），回车跳过去。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<目录片段>` | 可选，先按片段过滤 |
-
-**运行结果**：
-
-```text
-$ zi
+```sh
+zi                        # 打开 fzf 选
+zi wtool                  # 先按片段过滤
 ```
-
-打开 fzf 选择目录，回车后跳过去。
 
 ![zi](img/zi.png)
 
-### fzf-history-widget
-
-**功能**：zsh 的 fzf 历史搜索 widget，绑在 `Ctrl-R`。
-
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ bindkey '^R'
-"^R" fzf-history-widget
-```
-
-![Ctrl-R / fzf-history-widget](img/fzf-history.png)
-![Ctrl-R（bash）](img/ctrl-r-bash.png)
-
-### fzf-file-widget
-
-**功能**：fzf 的文件选择 widget，zsh 绑在 `Ctrl-T`，bash 也绑在 `Ctrl-T`。
-
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ bindkey '^T'
-"^T" fzf-file-widget
-```
-
-![Ctrl-T / fzf-file-widget](img/fzf-file.png)
-
-### fzf-cd-widget
-
-**功能**：fzf 的目录选择 widget，zsh 绑在 `Alt-C`（`^[c`）。
-
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ bindkey '^[c'
-"^[c" fzf-cd-widget
-```
-
-![Alt-C / fzf-cd-widget](img/fzf-cd.png)
-
-### fzf-completion
-
-**功能**：fzf 的补全 widget，zsh 绑在 `Tab`（`^I`）。
-
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ bindkey '^I'
-"^I" fzf-completion
-```
-
-![fzf-completion](img/fzf-completion.png)
-
 ### tmux-wtool
 
-**功能**：用项目自己的 `tmux.conf` 启动 tmux。
+**功能**：用 wtool 那份 `tmux.conf` 起 tmux 的别名。
 
-**参数**：`tmux` 自己的参数原样传入。
-
-**运行结果**：
-
-```text
-$ alias tmux-wtool
-alias tmux-wtool='command tmux -f "$WTOOL_TMUX_DIR/tmux.conf"'
+```sh
+tmux-wtool                # 等同 tmux -f ~/.wtool/wtool/terminal/tmux/tmux.conf
 ```
 
 ![tmux-wtool](img/tmux-wtool.png)
 
 ### 内部辅助函数
 
-这些函数会被别的函数调用，一般不直接敲。
+被别的函数调用，一般不直接敲。
 
 | 函数 | 用途 |
 |---|---|
@@ -900,12 +501,16 @@ alias tmux-wtool='command tmux -f "$WTOOL_TMUX_DIR/tmux.conf"'
 | `repo_mfst_get_remote_from_path` | 清单路径 → remote |
 | `repo_mfst_get_url_from_name` | 仓库名 → clone URL |
 | `wt_os_detect` | 探测系统 / 架构 / 并行度 |
-| `prompt_starship_precmd` | zsh starship 提示符钩子 |
-| `prompt_starship_preexec` | zsh starship 提示符钩子 |
-| `starship_zle-keymap-select` | zsh starship 键位切换钩子 |
-| `starship_precmd` | bash starship 提示符钩子 |
-| `starship_preexec` | bash starship 提示符钩子 |
-| `starship_preexec_ps0` | bash starship 提示符钩子 |
+| `fzf-history-widget` | Ctrl-R 绑定的历史搜索 |
+| `fzf-file-widget` | Ctrl-T 绑定的选文件 |
+| `fzf-cd-widget` | Alt-C 绑定的选目录 |
+| `fzf-completion` | Tab 补全的 fzf 选择器 |
+| `prompt_starship_precmd` | zsh 的 starship precmd 钩子 |
+| `prompt_starship_preexec` | zsh 的 starship preexec 钩子 |
+| `starship_zle-keymap-select` | zsh 键位切换钩子 |
+| `starship_precmd` | bash 的 starship precmd 钩子 |
+| `starship_preexec` | bash 的 starship preexec 钩子 |
+| `starship_preexec_ps0` | bash 的 PS0 钩子 |
 
 ## 键盘与历史搜索
 
@@ -917,139 +522,88 @@ alias tmux-wtool='command tmux -f "$WTOOL_TMUX_DIR/tmux.conf"'
 
 ### ↑ / ↓
 
-**功能**：上一条 / 下一条历史命令。zsh 和 bash 都是原生行为。
+**功能**：上一条 / 下一条历史命令 —— 原生行为，不弹选择器。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ git status
-$ ↑
-$ git status
+```sh
+git status               # 先跑一条
+↑                        # 命令行里出现上一条
 ```
-
-命令行出现上一条命令，不弹选择器。
 
 ![↑/↓](img/up-down.png)
 
 ### Ctrl-R
 
-**功能**：在命令历史里搜索。zsh 用 `fzf-history-widget`，bash 用 `__fzf_history__`。
+**功能**：在命令历史里搜索（`fzf-history-widget`）。
 
-**参数**：无。打开后直接输入关键字过滤。
-
-**运行结果**：
-
-```text
-  HIST_ALPHA_OUT
-  HIST_BETA_BUILD
-> HIST_GAMMA_RUN
-  3/12
+```sh
+Ctrl-R                   # 打开后直接输入关键字过滤，回车只填到命令行、不执行
 ```
-
-回车选中后，命令只是被填到命令行，不执行：
-
-```text
-$ HIST_GAMMA_RUN
-```
-
-可以继续编辑，再回车执行。
 
 ![Ctrl-R / fzf-history-widget](img/fzf-history.png)
+![Ctrl-R（bash）](img/ctrl-r-bash.png)
 
 ### Ctrl-P
 
 **功能**：zsh 里等同 `↑`；bash 里等同 `Ctrl-R` 的 fzf 历史搜索。
 
-**参数**：无。bash 里打开后直接输入关键字过滤。
-
-**运行结果**：
-
-zsh：
-
-```text
-$ git status
-$ Ctrl-P
-$ git status
+```sh
+Ctrl-P                   # zsh：上一条历史
 ```
-
-bash：
-
-```text
-  HIST_ALPHA_OUT
-  HIST_BETA_BUILD
-> HIST_GAMMA_RUN
-  3/12
-```
-
-选中回车后同样只填到命令行，不执行。
 
 ![Ctrl-P（zsh）](img/ctrl-p-zsh.png)
 ![Ctrl-P（bash）](img/ctrl-p-bash.png)
 
 ### Ctrl-T
 
-**功能**：fzf 选文件，把路径填到命令行。zsh 用 `fzf-file-widget`，bash 用 `fzf-file-widget`。
+**功能**：fzf 选文件，把路径填到命令行（`fzf-file-widget`）。
 
-**参数**：无。打开后输入关键字过滤。
-
-**运行结果**：
-
-```text
-$ bindkey '^T'
-"^T" fzf-file-widget
+```sh
+Ctrl-T                   # 选中回车后路径填到命令行，不执行
 ```
-
-选中回车后路径填到命令行，不执行。
 
 ![Ctrl-T / fzf-file-widget](img/fzf-file.png)
 ![Ctrl-T（bash）](img/ctrl-t-bash.png)
 
+### Tab 补全（fzf-completion）
+
+**功能**：`Tab` 触发补全；装了 fzf 时补全列表用 fzf 选（`fzf-completion`）。
+
+```sh
+ls <Tab>                 # 目录/文件补全
+git <Tab>                # 子命令补全
+```
+
+![fzf-completion](img/fzf-completion.png)
+
 ### Alt-C
 
-**功能**：fzf 选目录并跳过去。zsh 用 `fzf-cd-widget`。
+**功能**：fzf 选目录并跳过去（`fzf-cd-widget`）。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ bindkey '^[c'
-"^[c" fzf-cd-widget
+```sh
+Alt-C                    # 选中回车就 cd 过去
 ```
 
 ![Alt-C / fzf-cd-widget](img/fzf-cd.png)
 
 ### Ctrl-G
 
-**功能**：打开 navi 命令速查。zsh 绑成 `_navi_widget`。
+**功能**：打开 `navi` 命令速查（zsh 绑成 `_navi_widget`）。
 
-**参数**：无。打开后输入关键字过滤。
-
-**运行结果**：
-
-```text
-$ bindkey '^G'
-"^G" _navi_widget
+```sh
+Ctrl-G                   # 打开后输入关键字过滤
 ```
 
 ![Ctrl-G](img/ctrl-g.png)
 
 ### tmux 前缀键
 
-**功能**：tmux 默认前缀是 `Ctrl-B`。先按前缀，再按命令键。
+**功能**：tmux 默认前缀是 `Ctrl-B`；先按前缀，再按命令键。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ tmux show-options -g prefix
-prefix C-b
+```sh
+tmux show-options -g prefix     # prefix C-b
 ```
 
-常用键：`prefix + h/j/k/l` 切 pane（配置里另有 `Alt-h/j/k/l`），`prefix + Space` 已解绑。
+**提示**：`prefix + h/j/k/l` 切 pane（配置里另有 `Alt-h/j/k/l`）；`prefix + Space` 已解绑。
 
 ![tmux 前缀键](img/tmux-prefix.png)
 
@@ -1059,55 +613,33 @@ prefix C-b
 
 **功能**：包装 `tmux`，固定使用 `terminal/tmux/tmux.conf`。
 
-**参数**：`tmux` 自己的参数原样传入。
-
-**运行结果**：
-
-```text
-$ tmux -V
-tmux 3.4
+```sh
+tmux -V                  # tmux 3.x
+tmux ls                  # 其余参数原样传给 tmux
 ```
 
 ![tmux -V](img/tmux-version.png)
 
 ### cpu.sh
 
-**功能**：状态栏 CPU 指示。
+**功能**：状态栏 CPU 指示（`[C:2%]`）。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<loadavg 文件>` | 可选，默认 `/proc/loadavg` |
-| `$WTOOL_NCPU` | 可选，指定在线 CPU 数 |
-
-**运行结果**：
-
-```text
-$ sh ~/.wtool/wtool/terminal/tmux/bin/cpu.sh
-[C:0%]
+```sh
+sh ~/.wtool/wtool/terminal/tmux/bin/cpu.sh            # 读 /proc/loadavg
+sh ~/.wtool/wtool/terminal/tmux/bin/cpu.sh <文件>      # 换 loadavg 文件
 ```
 
 ![cpu.sh](img/cpu.png)
 
 ### mem.sh
 
-**功能**：状态栏可用内存和可用 swap。
+**功能**：状态栏可用内存和可用 swap（`[M:19.5G S:68.7G]`）。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<meminfo 文件>` | 可选，默认 `/proc/meminfo` |
-
-**运行结果**：
-
-```text
-$ sh ~/.wtool/wtool/terminal/tmux/bin/mem.sh
-[M:19.5G S:68.7G]
+```sh
+sh ~/.wtool/wtool/terminal/tmux/bin/mem.sh            # 读 /proc/meminfo
 ```
 
-读不到 `/proc/meminfo` 时输出 `[M:? S:?]`。
+**提示**：读不到时输出 `[M:? S:?]`。
 
 ![mem.sh](img/mem.png)
 
@@ -1115,34 +647,25 @@ $ sh ~/.wtool/wtool/terminal/tmux/bin/mem.sh
 
 **功能**：状态栏磁盘使用量。
 
-**参数**：无。
-
-**运行结果**：
-
-```text
-$ sh ~/.wtool/wtool/terminal/tmux/bin/disk.sh
-[/dev/sdd:288.5G C:\18.5G D:\262.4G E:\1.2T]
+```sh
+sh ~/.wtool/wtool/terminal/tmux/bin/disk.sh
 ```
 
-没有识别到磁盘时输出 `[]`。
+**提示**：没识别到磁盘时输出 `[]`。
 
 ![disk.sh](img/disk.png)
 
 ## musl 工具（43 个）
 
+每个工具一个项目，装单个：`wtool install tools/musl-bins/bat`。
+
 ### 工具总表
-
-每个工具一个项目，装单个：
-
-```bash
-wtool install tools/musl-bins/bat
-```
 
 | 命令 | 工具目录 | 功能 | 典型用法 |
 |---|---|---|---|
 | `bat` | `bat` | 带语法高亮的 cat | `bat file` |
 | `eza` | `eza` | ls 替代 | `eza -l` |
-| `delta` | `delta` | git diff 高亮 | `git diff \ |
+| `delta` | `delta` | git diff 高亮 | `git diff \| delta` |
 | `dust` | `dust` | 磁盘占用树 | `dust` |
 | `duf` | `duf` | 磁盘使用概览 | `duf` |
 | `procs` | `procs` | 进程查看 | `procs` |
@@ -1182,35 +705,545 @@ wtool install tools/musl-bins/bat
 | `hexyl` | `hexyl` | 十六进制查看 | `hexyl file` |
 | `qsv` | `qsv` | CSV 处理 | `qsv stats data.csv` |
 | `rg` | `ripgrep` | 递归搜索 | `rg pattern` |
-| `fdfind` | `fdfind` | find 替代 | `fdfind pattern` |
+| `fdfind` | `fd` | find 替代 | `fdfind pattern` |
 
-### 工具截图
+### bat
 
-| 命令 | 截图 | 命令 | 截图 |
-|---|---|---|---|
-| `bat` | <img src="img/bat-version.png" width="360"> | `eza` | <img src="img/eza-version.png" width="360"> |
-| `delta` | <img src="img/delta-version.png" width="360"> | `dust` | <img src="img/dust-version.png" width="360"> |
-| `duf` | <img src="img/duf-version.png" width="360"> | `procs` | <img src="img/procs-version.png" width="360"> |
-| `btm` | <img src="img/btm-version.png" width="360"> | `jq` | <img src="img/jq-version.png" width="360"> |
-| `gojq` | <img src="img/gojq-version.png" width="360"> | `yq` | <img src="img/yq-version.png" width="360"> |
-| `sd` | <img src="img/sd-version.png" width="360"> | `hyperfine` | <img src="img/hyperfine-version.png" width="360"> |
-| `just` | <img src="img/just-version.png" width="360"> | `scc` | <img src="img/scc-version.png" width="360"> |
-| `difft` | <img src="img/difft-version.png" width="360"> | `fclones` | <img src="img/fclones-version.png" width="360"> |
-| `shellcheck` | <img src="img/shellcheck-version.png" width="360"> | `shfmt` | <img src="img/shfmt-version.png" width="360"> |
-| `age` | <img src="img/age-version.png" width="360"> | `b3sum` | <img src="img/b3sum-version.png" width="360"> |
-| `glow` | <img src="img/glow-version.png" width="360"> | `xh` | <img src="img/xh-version.png" width="360"> |
-| `gping` | <img src="img/gping-version.png" width="360"> | `trip` | <img src="img/trip-version.png" width="360"> |
-| `yazi` | <img src="img/yazi-version.png" width="360"> | `zellij` | <img src="img/zellij-version.png" width="360"> |
-| `lazygit` | <img src="img/lazygit-version.png" width="360"> | `dive` | <img src="img/dive-version.png" width="360"> |
-| `fzf` | <img src="img/fzf-version.png" width="360"> | `zoxide` | <img src="img/zoxide-version.png" width="360"> |
-| `direnv` | <img src="img/direnv-version.png" width="360"> | `starship` | <img src="img/starship-version.png" width="360"> |
-| `navi` | <img src="img/navi-version.png" width="360"> | `rclone` | <img src="img/rclone-version.png" width="360"> |
-| `mlr` | <img src="img/mlr-version.png" width="360"> | `csvlens` | <img src="img/csvlens-version.png" width="360"> |
-| `watchexec` | <img src="img/watchexec-version.png" width="360"> | `lf` | <img src="img/lf-version.png" width="360"> |
-| `micro` | <img src="img/micro-version.png" width="360"> | `hexyl` | <img src="img/hexyl-version.png" width="360"> |
-| `qsv` | <img src="img/qsv-version.png" width="360"> | `rg` | <img src="img/rg-version.png" width="360"> |
-| `fdfind` | <img src="img/fdfind-version.png" width="360"> | | |
+**功能**：带语法高亮的 `cat`，带行号、Git 改动标记。
 
+```sh
+bat README.md              # 高亮 + 行号
+bat -A notes.txt           # 连不可见字符一起显示（tab、换行）
+bat -p hello.py            # 纯文本，不要行号/边框
+bat -H 2:3 hello.py        # 高亮第 2–3 行
+bat --list-themes          # 看有哪些主题
+```
+
+![bat](img/bat-usage.png)
+
+### eza
+
+**功能**：`ls` 替代品：图标、Git 状态、树形。
+
+```sh
+eza -l                     # 长格式
+eza -la --icons            # 带图标、含隐藏文件
+eza -T -L 2                # 树形，最多两层
+eza -l --sort=size -r      # 按大小反序
+eza -l --git               # 带 git 状态
+```
+
+![eza](img/eza-usage.png)
+
+### delta
+
+**功能**：给 `git diff` / `git show` 上色的分页器（并排、行号、语法高亮）。
+
+```sh
+git diff | delta           # 看当前改动
+git show HEAD | delta      # 看某次提交
+git log -p -1 | delta
+```
+
+**提示**：想让它默认生效，在 git 配置里把它设成 `core.pager`。
+
+![delta](img/delta-usage.png)
+
+### dust
+
+**功能**：磁盘占用树（比 `du` 直观）。
+
+```sh
+dust                       # 当前目录
+dust -d 2                  # 只看两层
+dust -n 10                 # 只列 10 行
+dust -r                    # 反序（小的在前）
+```
+
+![dust](img/dust-usage.png)
+
+### duf
+
+**功能**：磁盘使用概览（`df` 的可读版）。
+
+```sh
+duf                        # 所有挂载点
+duf --only local           # 只看本地盘
+duf --json                 # JSON 输出
+```
+
+![duf](img/duf-usage.png)
+
+### procs
+
+**功能**：`ps` 替代品，按列看进程（默认带 CPU/内存排序）。
+
+```sh
+procs                      # 全部进程
+procs --sortd cpu          # 按 CPU 降序
+procs bash                 # 只看名字含 bash 的
+procs --tree               # 进程树
+```
+
+![procs](img/procs-usage.png)
+
+### btm
+
+**功能**：终端系统监控（CPU / 内存 / 网络 / 磁盘的实时图）。TUI。
+
+```sh
+btm                        # 完整界面
+btm -b                     # 精简界面（basic）
+btm --battery              # 显示电池
+```
+
+![btm](img/btm-usage.png)
+
+### jq
+
+**功能**：JSON 处理（取字段、过滤、格式化）。
+
+```sh
+jq . a.json                # 格式化
+jq -r '.tags[]' a.json     # 取数组元素，裸输出
+jq -c . a.json             # 压成一行
+jq 'keys' a.json           # 看有哪些键
+```
+
+![jq](img/jq-usage.png)
+
+### gojq
+
+**功能**：纯 Go 的 `jq`（同样的语法，单文件、好分发）。
+
+```sh
+gojq . a.json
+gojq -c '.tags' a.json
+gojq --yaml-input '.a' file.yaml
+```
+
+![gojq](img/gojq-usage.png)
+
+### yq
+
+**功能**：YAML / JSON 查询与改写（`jq` 的 YAML 版）。
+
+```sh
+yq '.name' a.json          # 取字段
+yq '.tags[]' a.json        # 取数组
+yq -i '.n = 5' a.json      # 原地改（-i）
+yq -o=json '.' file.yaml   # YAML → JSON
+```
+
+![yq](img/yq-usage.png)
+
+### sd
+
+**功能**：查找替换（`sed` 的现代替代，默认正则）。
+
+```sh
+sd 'foo' 'bar' notes.txt          # 原地替换
+sd -p 'py' 'python' data.csv      # 只预览（打印 diff，不写文件）
+sd '(\w+)@' 'x@' file             # 正则分组
+```
+
+![sd](img/sd-usage.png)
+
+### hyperfine
+
+**功能**：命令基准测试（多次跑、给统计和对比）。
+
+```sh
+hyperfine 'ls'                    # 单条
+hyperfine -w 2 -m 5 'ls' 'eza'    # 预热 2 次、各跑 5 次，两条对比
+hyperfine --export-json r.json 'ls'
+```
+
+![hyperfine](img/hyperfine-usage.png)
+
+### just
+
+**功能**：`justfile` 里的命令运行器（`make` 的现代替代）。
+
+```sh
+just --list                # 列出所有 recipe
+just build                 # 跑某条
+just build --release       # 参数原样传给 recipe
+```
+
+![just](img/just-usage.png)
+
+### scc
+
+**功能**：代码行数统计（按语言、按文件）。
+
+```sh
+scc                        # 当前目录按语言汇总
+scc --by-file              # 按文件
+scc --format json          # JSON
+```
+
+![scc](img/scc-usage.png)
+
+### difft
+
+**功能**：语法感知的 diff（按语法树对齐，比行 diff 准）。命令名 `difft`，项目目录 `difftastic`。
+
+```sh
+difft a.py b.py            # 两个文件对比
+difft --display inline a.py b.py
+git diff | difft           # 当 git 的分页器用
+```
+
+![difft](img/difft-usage.png)
+
+### fclones
+
+**功能**：重复文件查找 / 去重 / 链接。
+
+```sh
+fclones group .            # 找出重复文件组
+fclones group . --min-size 1K
+fclones group . > dup.txt  # 存清单
+fclones remove --dry-run dup.txt
+```
+
+![fclones](img/fclones-usage.png)
+
+### shellcheck
+
+**功能**：shell 脚本静态检查。
+
+```sh
+shellcheck build.sh        # 报问题
+shellcheck -e SC2086 x.sh  # 忽略某类
+shellcheck -f gcc x.sh     # gcc 风格输出（编辑器好接）
+```
+
+![shellcheck](img/shellcheck-usage.png)
+
+### shfmt
+
+**功能**：shell 脚本格式化。
+
+```sh
+shfmt -d build.sh          # 只打印 diff
+shfmt -w build.sh          # 原地写回
+shfmt -l .                 # 列出需要格式化的文件
+shfmt -i 2 -ci -w x.sh     # 缩进 2、case 也缩进
+```
+
+![shfmt](img/shfmt-usage.png)
+
+### age
+
+**功能**：文件加密（现代、简单、可编程）。
+
+```sh
+age-keygen -o age-key.txt                          # 生成密钥
+age -e -r <公钥> -o secret.txt.age secret.txt       # 加密给某个公钥
+age -d -i age-key.txt secret.txt.age               # 解密
+age -p file                                        # 用口令加密（交互）
+```
+
+![age](img/age-usage.png)
+
+### b3sum
+
+**功能**：BLAKE3 校验和。
+
+```sh
+b3sum secret.txt data.csv  # 算校验和
+b3sum --check sums.txt     # 按清单校验
+b3sum * > sums.txt         # 生清单
+```
+
+![b3sum](img/b3sum-usage.png)
+
+### glow
+
+**功能**：在终端里渲染 Markdown。
+
+```sh
+glow README.md             # 渲染
+glow -p README.md          # 分页器模式
+glow -w 80 README.md       # 指定宽度
+glow -l README.md          # 带行号
+```
+
+![glow](img/glow-usage.png)
+
+### xh
+
+**功能**：HTTP 客户端（`httpie` 的 Rust 版）。
+
+```sh
+xh GET https://example.com             # GET
+xh POST https://example.com name==foo  # 表单字段
+xh -j PUT https://example.com/a.json < a.json   # JSON 体
+xh --offline POST https://example.com  # 只打印将发出的请求，不联网
+```
+
+![xh](img/xh-usage.png)
+
+### gping
+
+**功能**：带图的 ping（延迟曲线）。
+
+```sh
+gping 1.1.1.1              # 图形界面
+gping -s 127.0.0.1         # 简易字符图（-s）
+gping --watch-interval 2 host
+```
+
+![gping](img/gping-usage.png)
+
+### trip
+
+**功能**：网络诊断 / traceroute（TUI）。命令名 `trip`，项目目录 `trippy`。
+
+```sh
+sudo trip example.com      # 需要 raw socket（一般要 sudo）
+sudo trip -m 5 example.com # 最多 5 跳
+```
+
+**提示**：它是全屏 TUI，本页只截它的帮助。
+
+![trip](img/trip-usage.png)
+
+### yazi
+
+**功能**：终端文件管理器（TUI，预览、批量）。
+
+```sh
+yazi                       # 当前目录
+yazi /tmp/wtool-demo-files # 指定目录
+```
+
+![yazi](img/yazi-usage.png)
+
+### zellij
+
+**功能**：终端复用器（与 tmux 同类，布局用 KDL 描述）。
+
+```sh
+zellij list-sessions       # 有哪些会话
+zellij                     # 起一个新会话
+zellij attach <名字>        # 接回去
+```
+
+![zellij](img/zellij-usage.png)
+
+### lazygit
+
+**功能**：Git 的终端界面（暂存、提交、分支、rebase 都在一屏）。
+
+```sh
+lazygit                    # 当前仓库
+lazygit -p <仓库路径>       # 指定仓库
+```
+
+![lazygit](img/lazygit-usage.png)
+
+### dive
+
+**功能**：看 docker 镜像的每一层，找出白占空间的文件。
+
+```sh
+dive nginx:latest                     # 分析镜像
+dive --ci nginx:latest                # CI 里跑（非交互、按阈值报错）
+dive build -t myimg .                 # 边构建边分析
+```
+
+**提示**：它需要 docker；本页只截帮助。
+
+![dive](img/dive-usage.png)
+
+### fzf
+
+**功能**：模糊查找（选择器；非交互时也能当过滤器用）。
+
+```sh
+ls | fzf                            # 交互式选
+ls | fzf --filter=README            # 非交互过滤（直接给命中的行）
+fzf --preview 'bat {}'              # 带预览
+```
+
+![fzf](img/fzf-usage.png)
+
+### zoxide
+
+**功能**：智能 `cd`（按访问频率，`z` / `zi` 就是用它）。
+
+```sh
+zoxide query wtool         # 查最匹配的目录
+zoxide query -l            # 列出库里的目录
+zoxide add /tmp            # 手动加一条
+```
+
+![zoxide](img/zoxide-usage.png)
+
+### direnv
+
+**功能**：目录级环境变量（进目录自动加载 `.envrc`，出去自动卸）。
+
+```sh
+direnv allow               # 信任当前目录的 .envrc
+direnv status              # 看当前状态和配置
+direnv reload              # 重载
+```
+
+![direnv](img/direnv-usage.png)
+
+### starship
+
+**功能**：通用提示符（跨 shell 的 PS1 生成器）。
+
+```sh
+starship prompt            # 打印当前提示符
+starship init zsh          # 生成 zsh 初始化代码
+starship config            # 打开配置
+```
+
+**提示**：装了 oh-my-zsh（`ys` 主题）时两者会抢提示符 —— 本项目让 `ys` 赢。
+
+![starship](img/starship-usage.png)
+
+### navi
+
+**功能**：命令速查（cheatsheet，`Ctrl-G` 就是打开它）。
+
+```sh
+navi                       # 交互式浏览
+navi --print               # 选中后只打印命令，不执行
+navi fn widget::last_command
+```
+
+![navi](img/navi-usage.png)
+
+### rclone
+
+**功能**：云存储同步（S3 / WebDAV / 各家网盘，一个命令）。
+
+```sh
+rclone listremotes         # 配了哪些远端
+rclone lsd remote:         # 列目录
+rclone sync src remote:dst # 单向同步
+rclone copy file remote:dir
+```
+
+![rclone](img/rclone-usage.png)
+
+### mlr
+
+**功能**：CSV / JSON / TSV 处理（`awk` 的表格式版）。命令名 `mlr`，项目目录 `miller`。
+
+```sh
+mlr --icsv --ojson cat data.csv        # CSV → JSON
+mlr --csv cut -f name,size data.csv    # 选列
+mlr --csv sort -f size data.csv        # 排序
+mlr --csv stats1 -a mean -f size data.csv
+```
+
+![mlr](img/mlr-usage.png)
+
+### csvlens
+
+**功能**：CSV 查看 / 过滤 / 排序（TUI）。
+
+```sh
+csvlens data.csv           # 打开
+csvlens -t data.tsv        # tab 分隔
+csvlens --filter foo data.csv
+```
+
+![csvlens](img/csvlens-usage.png)
+
+### watchexec
+
+**功能**：文件一变就重跑命令。
+
+```sh
+watchexec -e py 'python3 hello.py'     # 改 .py 就重跑
+watchexec -w src 'make'                # 只看 src/
+watchexec -- ls                        # 每次都跑 ls
+```
+
+![watchexec](img/watchexec-usage.png)
+
+### lf
+
+**功能**：终端文件管理器（vim 键位）。
+
+```sh
+lf                         # 当前目录
+lf /tmp                    # 指定目录
+```
+
+![lf](img/lf-usage.png)
+
+### micro
+
+**功能**：终端编辑器（键位接近常见编辑器，鼠标可用）。
+
+```sh
+micro notes.txt            # 打开/新建
+micro -plugin list         # 插件
+```
+
+![micro](img/micro-usage.png)
+
+### hexyl
+
+**功能**：十六进制查看（彩色、带偏移）。
+
+```sh
+hexyl sample.bin           # 全部
+hexyl -n 32 sample.bin     # 只看前 32 字节
+hexyl -s 16 sample.bin     # 从偏移 16 开始
+```
+
+![hexyl](img/hexyl-usage.png)
+
+### qsv
+
+**功能**：CSV 处理（索引、切片、统计、SQL 查询）。
+
+```sh
+qsv stats data.csv         # 每列统计
+qsv headers data.csv       # 表头
+qsv select name,size data.csv
+qsv slice -l 2 data.csv    # 前两行
+```
+
+![qsv](img/qsv-usage.png)
+
+### rg
+
+**功能**：递归搜索（`grep` 替代，默认尊重 `.gitignore`）。命令名 `rg`，项目目录 `ripgrep`。
+
+```sh
+rg add                     # 递归搜 add
+rg -n 'def ' .             # 带行号
+rg -t py add               # 只在 python 文件里搜
+rg -l foo                  # 只列文件名
+rg --json foo              # 结构化输出
+```
+
+![rg](img/rg-usage.png)
+
+### fdfind
+
+**功能**：`find` 替代（按名字/类型找文件，默认忽略隐藏和 `.gitignore`）。命令名 `fdfind`，项目目录 `fd`。
+
+```sh
+fdfind -e rs               # 按扩展名
+fdfind --type f foo        # 只找文件
+fdfind -H '\.hidden'       # 连隐藏文件一起
+fdfind -x wc -l {}         # 对每个结果执行命令
+```
+
+![fdfind](img/fdfind-usage.png)
 
 ## 其它命令（`$WTOOL_HOME/usr/bin`）
 
@@ -1218,151 +1251,36 @@ wtool install tools/musl-bins/bat
 
 **功能**：wtool 装的 zsh。
 
-**参数**：zsh 自己的参数原样传入。
-
-**运行结果**：
-
-```text
-$ zsh --version
-zsh 5.9.2 (x86_64-unknown-linux-gnu)
+```sh
+zsh --version             # zsh 5.9.2
+zsh                        # 其余参数原样传
 ```
+
+| 名字 | 说明 |
+|---|---|
+| `zsh-5.9.2` | 带版本号的 zsh 二进制（`zsh` 是它的软链） |
 
 ![zsh --version](img/zsh-version.png)
 
 ### wpack
 
-**功能**：Android 镜像解包 / 打包。
+**功能**：Android 镜像解包 / 打包（`android_repack` 项目提供的命令）。
 
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `unpack <项目>/<类型> <镜像> <工作目录>` | 解包 |
-| `repack <项目>/<类型> <工作目录> <输出镜像>` | 重新打包 |
-| `restore <项目>/<类型> <工作目录> <路径>` | 还原一个叶子 |
-| `list [项目]` | 列项目 / 类型 |
-| `doctor` | 自检 |
-
-**运行结果**：
-
-```text
-$ wpack --version
-wpack 0.1.0
+```sh
+wpack list                        # 列项目和类型
+wpack unpack <项目>/<类型> <镜像> <工作目录>
+wpack repack <项目>/<类型> <工作目录> <输出镜像>
+wpack doctor                      # 自检
 ```
 
 ![wpack --version](img/wpack-version.png)
-
-### dsh-remote
-
-**功能**：手机远程查看 / 接管 DSH 会话。
-
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `status` | 体检：harness、隧道、推送、手机地址 |
-| `serve` | 后台起 harness |
-| `tunnel` / `tunnel-install` / `tunnel-uninstall` / `tunnel-status` | 反向隧道 |
-| `serve-install` / `serve-status` / `serve-uninstall` | dsh web 常驻服务 |
-| `broker-install` / `broker-uninstall` | token broker 常驻服务 |
-| `force-restart-dsh-remote` | 重启隧道 / broker 并复验 |
-| `url` | 打印手机地址 |
-| `notify-test` / `notify-enable` / `notify-disable` | 推送开关 |
-| `passwd` | 改中继密码 |
-| `server` | 一条命令装好云上 + 家里 |
-| `cloud-install` / `cloud-setup` | 阿里云侧 |
-| `migrate` / `check-hooks` / `log` | 迁移 / 验证钩子 / 日志 |
-
-**运行结果**：
-
-```text
-$ dsh-remote status
-dsh-remote: …（按实际配置打印体检结果）
-```
-
-![dsh-remote --help](img/dsh-remote-help.png)
-
-### dsh-notify
-
-**功能**：把消息推到手机或邮箱。
-
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `<标题> <正文>` | 直接推一条 |
-| `--test` | 推测试消息 |
-| `--test --provider graph` | 只测 Graph |
-| `--hook [--async]` | 从 stdin 读 hook JSON |
-
-**运行结果**：
-
-```text
-$ dsh-notify --test
-dsh-notify: 已发送（provider=…）
-```
-
-![dsh-notify --help](img/dsh-notify-help.png)
-
-### dsh-token-broker
-
-**功能**：把手机访问的 `/` 302 到当前 dsh web token。
-
-**参数**：
-
-| 参数 | 说明 |
-|---|---|
-| `--host <地址>` | 绑定地址，默认 `127.0.0.1` |
-| `--port <端口>` | 监听端口，默认 3081 |
-| `--web-port <端口>` | dsh web 端口，默认 3080 |
-| `--token-file <文件>` | token 文件 |
-| `--probe-timeout <秒>` | 探测超时，默认 3 |
-
-**运行结果**：
-
-```text
-$ dsh-token-broker --help
-usage: dsh-token-broker [-h] [--host HOST] [--port PORT] …
-```
-
-![dsh-token-broker --help](img/dsh-token-broker-help.png)
-
-### dsh-remote-server
-
-**功能**：`dsh-remote server` 的别名。
-
-**参数**：与 `dsh-remote server` 相同。
-
-**运行结果**：
-
-```text
-$ dsh-remote-server --help
-server 不认识的参数：--help（dsh-remote help）
-```
-
-![dsh-remote-server --help](img/dsh-remote-server-help.png)
-
-### 其它 `usr/bin` 命令
-
-| 命令 | 用途 |
-|---|---|
-| `zsh-5.9.2` | 带版本号的 zsh 二进制 |
-| `dsh-qr` | 把文本画成二维码 |
-| `dsh-notify-graph-setup` | 一次性授权 Microsoft Graph，写 `notify.conf` |
-| `dsh-web-run` | `dsh web` 的常驻包装（systemd 用） |
-| `harness-remote` | 云上那半的管理器：隧道 / broker / 公网入口 |
-| `dsh-force-restart-dsh-remote` | `dsh-remote force-restart-dsh-remote` 的薄封装 |
-
-![dsh-qr --help](img/dsh-qr-help.png)
-![dsh-notify-graph-setup --help](img/dsh-notify-graph-setup-help.png)
-![harness-remote --help](img/harness-remote-help.png)
-![dsh-force-restart-dsh-remote --help](img/dsh-force-restart-help.png)
-![dsh-web-run](img/dsh-web-run-help.png)
 
 ## 常见问题
 
 ### `env -i` 下 zsh 动态模块加载不到
 
-```bash
-env -i ZDOTDIR=~/.wtool zsh
+`env -i ZDOTDIR=~/.wtool zsh` 会缺 `PATH`，补上就行：
+
+```sh
+env -i ZDOTDIR=~/.wtool PATH=/usr/bin:/bin zsh
 ```

@@ -1,0 +1,135 @@
+# 文档截图场景表：名字	shell	起始目录	home	在真交互 shell 里键入的命令
+# home：real=真家目录；demo=账本一致的沙箱家目录；fresh=什么都没装的沙箱
+age-version	zsh	/home/mindul/self/wtool	real	age --version
+aliases	zsh	/home/mindul/self/wtool	real	alias gs; alias gss; alias gd
+b3sum-version	zsh	/home/mindul/self/wtool	real	b3sum --version
+bat-version	zsh	/home/mindul/self/wtool	real	bat --version
+btm-version	zsh	/home/mindul/self/wtool	real	btm --version
+cdd	zsh	/home/mindul/self/wtool	real	cdd terminal/tmux; pwd
+cdd-fail	zsh	/home/mindul/self/wtool	real	cdd no-such-project
+cdd-path	zsh	/home/mindul/self/wtool	real	cdd_path terminal/tmux
+cm	zsh	/home/mindul/self/wtool/terminal/tmux	real	cm; pwd
+cmm	zsh	/home/mindul/self/wtool/terminal/tmux	real	cmm
+cnb	zsh	/home/mindul/self/wtool	real	cnb
+cnn	zsh	/home/mindul/self/wtool	real	cnn
+cnp	zsh	/home/mindul/self/wtool/tools/git-repo-sh-tools	real	cnp
+cnr	zsh	/home/mindul/self/wtool	real	cnr
+cpu	zsh	/home/mindul/self/wtool	real	sh /home/mindul/self/wtool/terminal/tmux/bin/cpu.sh
+cs	zsh	/home/mindul/self/wtool/tools/git-repo-sh-tools	real	cs; pwd
+css	zsh	/home/mindul/self/wtool	real	css
+csvlens-version	zsh	/home/mindul/self/wtool	real	csvlens --version
+ct	zsh	/home/mindul/self/wtool/tools/git-repo-sh-tools/tests	real	ct; pwd
+ctrl-g	zsh	/home/mindul/self/wtool	real	bindkey '^G'
+ctrl-p-bash	bash	/home/mindul/self/wtool	real	bind -X | grep -F '\C-p'
+ctrl-p-zsh	zsh	/home/mindul/self/wtool	real	bindkey '^P'
+ctrl-r-bash	bash	/home/mindul/self/wtool	real	bind -X | grep -F '\C-r'
+ctrl-t-bash	bash	/home/mindul/self/wtool	real	bind -X | grep -F '\C-t'
+ctt	zsh	/home/mindul/self/wtool/tools/git-repo-sh-tools/tests	real	ctt
+cw	zsh	/home/mindul/self/wtool/terminal	real	cw; pwd
+delta-version	zsh	/home/mindul/self/wtool	real	delta --version
+difft-version	zsh	/home/mindul/self/wtool	real	difft --version
+direnv-version	zsh	/home/mindul/self/wtool	real	direnv version
+disk	zsh	/home/mindul/self/wtool	real	sh /home/mindul/self/wtool/terminal/tmux/bin/disk.sh
+dive-version	zsh	/home/mindul/self/wtool	real	dive --version
+dsh-force-restart-help	zsh	/home/mindul/self/wtool	real	dsh-force-restart-dsh-remote --help | head -4
+dsh-notify-graph-setup-help	zsh	/home/mindul/self/wtool	real	dsh-notify-graph-setup --help | head -6
+dsh-notify-help	zsh	/home/mindul/self/wtool	real	dsh-notify --help | head -7
+dsh-qr-help	zsh	/home/mindul/self/wtool	real	dsh-qr --help | head -5
+dsh-remote-help	zsh	/home/mindul/self/wtool	real	dsh-remote --help | head -8
+dsh-remote-server-help	zsh	/home/mindul/self/wtool	real	dsh-remote-server --help | head -3
+dsh-token-broker-help	zsh	/home/mindul/self/wtool	real	dsh-token-broker --help | head -6
+dsh-web-run-help	zsh	/home/mindul/self/wtool	real	dsh-web-run --help 2>&1 | head -4
+duf-version	zsh	/home/mindul/self/wtool	real	duf --version | head -1
+dust-version	zsh	/home/mindul/self/wtool	real	dust --version
+eza-version	zsh	/home/mindul/self/wtool	real	eza --version | head -1
+fclones-version	zsh	/home/mindul/self/wtool	real	fclones --version
+fdfind-version	zsh	/home/mindul/self/wtool	real	fdfind --version
+fzf-cd	zsh	/home/mindul/self/wtool	real	bindkey '^[c'
+fzf-completion	zsh	/home/mindul/self/wtool	real	bindkey '^I'
+fzf-file	zsh	/home/mindul/self/wtool	real	bindkey '^T'
+fzf-history	zsh	/home/mindul/self/wtool	real	bindkey '^R'
+fzf-version	zsh	/home/mindul/self/wtool	real	fzf --version
+glow-version	zsh	/home/mindul/self/wtool	real	glow --version
+gojq-version	zsh	/home/mindul/self/wtool	real	gojq --version
+gping-version	zsh	/home/mindul/self/wtool	real	gping --version
+harness-remote-help	zsh	/home/mindul/self/wtool	real	harness-remote --help | head -6
+hexyl-version	zsh	/home/mindul/self/wtool	real	hexyl --version
+hyperfine-version	zsh	/home/mindul/self/wtool	real	hyperfine --version
+install-uninstalled	zsh	/home/mindul/self/wtool	fresh	wtool status | tail -3
+jq-version	zsh	/home/mindul/self/wtool	real	jq --version
+just-version	zsh	/home/mindul/self/wtool	real	just --version
+lazygit-version	zsh	/home/mindul/self/wtool	real	lazygit --version | head -1
+lf-version	zsh	/home/mindul/self/wtool	real	lf --version
+mem	zsh	/home/mindul/self/wtool	real	sh /home/mindul/self/wtool/terminal/tmux/bin/mem.sh
+micro-version	zsh	/home/mindul/self/wtool	real	micro --version
+mlr-version	zsh	/home/mindul/self/wtool	real	mlr --version
+navi-version	zsh	/home/mindul/self/wtool	real	navi --version
+oh-my-zsh	zsh	/home/mindul/self/wtool	real	grep "^ZSH_THEME" "$ZSH/env.zsh" | head -1
+pdd	zsh	/tmp	real	pdd; pwd
+procs-version	zsh	/home/mindul/self/wtool	real	procs --version
+proxy-off	zsh	/home/mindul/self/wtool	real	proxy_off
+proxy-on	zsh	/home/mindul/self/wtool	real	proxy_on 127.0.0.1 7897
+pss	zsh	/tmp	real	pss
+pwd	zsh	/tmp	real	pwd
+qsv-version	zsh	/home/mindul/self/wtool	real	qsv --version | cut -c1-90
+rclone-version	zsh	/home/mindul/self/wtool	real	rclone version | head -1
+rg-version	zsh	/home/mindul/self/wtool	real	rg --version | head -1
+scc-version	zsh	/home/mindul/self/wtool	real	scc --version | head -2
+sd-version	zsh	/home/mindul/self/wtool	real	sd --version
+shellcheck-version	zsh	/home/mindul/self/wtool	real	shellcheck --version | head -2
+shfmt-version	zsh	/home/mindul/self/wtool	real	shfmt --version
+starship-version	zsh	/home/mindul/self/wtool	real	starship --version | head -1
+start-fail	zsh	/home/mindul/self/wtool	real	start /no/such/path
+this-is-not-wsl	zsh	/home/mindul/self/wtool	real	this_is_not_wsl; echo $?
+this-is-wsl	zsh	/home/mindul/self/wtool	real	this_is_wsl; echo $?
+tmux-prefix	zsh	/home/mindul/self/wtool	real	tmux -L doctest -f /home/mindul/self/wtool/terminal/tmux/tmux.conf start-server \; show-options -g prefix \; kill-server
+tmux-version	zsh	/home/mindul/self/wtool	real	tmux -V
+tmux-wtool	zsh	/home/mindul/self/wtool	real	alias tmux-wtool
+trip-version	zsh	/home/mindul/self/wtool	real	trip --version
+up-down	zsh	/home/mindul/self/wtool	real	bindkey '^[[A'; bindkey '^[[B'
+watchexec-version	zsh	/home/mindul/self/wtool	real	watchexec --version
+win	zsh	/home/mindul/self/wtool	real	win
+wpack-version	zsh	/home/mindul/self/wtool	real	wpack --version
+wrg	zsh	/home/mindul/self/wtool	real	wrg -v
+wtool-bootstrap	zsh	/home/mindul/self/wtool	real	wtool bootstrap --dry-run --force 2>/dev/null | grep '共 '
+wtool-build	zsh	/home/mindul/self/wtool	real	wtool build shell/zsh --dry-run | sed -n '1p;3,8p'
+wtool-check	zsh	/home/mindul/self/wtool	demo	wtool check
+wtool-check-fail	zsh	/home/mindul/self/wtool	fresh	wtool check terminal/tmux | head -3
+wtool-complete	zsh	/home/mindul/self/wtool	real	wtool _complete install
+wtool-doctor	zsh	/home/mindul/self/wtool	real	wtool doctor | head -12
+wtool-download	zsh	/home/mindul/self/wtool	real	wtool download-release tools/musl-bins/bat --dry-run
+wtool-help	zsh	/home/mindul/self/wtool	real	wtool --help | sed -n '4,9p'
+wtool-init	zsh	/home/mindul/self/wtool	real	wtool init demo/new --priority 55 --all | head -8
+wtool-install	zsh	/home/mindul/self/wtool	demo	wtool install terminal/tmux --force | sed -n '1,8p;$p'
+wtool-kill	zsh	/home/mindul/self/wtool	demo	wtool kill-self-forever --dry-run --yes | head -12
+wtool-layer-load	zsh	/home/mindul/self/wtool	real	wtool _layer-load
+wtool-layer-save	zsh	/home/mindul/self/wtool	real	wtool _layer-save
+wtool-move	zsh	/home/mindul/self/wtool	real	wtool move terminal/tmux terminal/tmux2 --dry-run
+wtool-pack	zsh	/home/mindul/self/wtool	real	wtool pack-release shell/zsh --dry-run | head -8
+wtool-pack-fail	zsh	/home/mindul/self/wtool	real	wtool pack-release terminal/tmux
+wtool-pack-offline	zsh	/home/mindul/self/wtool	real	wtool pack-offline-release terminal/tmux --dry-run | head -7
+wtool-publish	zsh	/home/mindul/self/wtool	real	wtool publish-release shell/zsh --dry-run | head -8
+wtool-publish-offline	zsh	/home/mindul/self/wtool	real	wtool publish-offline-release shell/zsh --dry-run | head -7
+wtool-pull-layer	zsh	/home/mindul/self/wtool	real	wtool pull-layer shell/zsh --registry=registry.example.com/wtool --dry-run | head -4
+wtool-push-layer	zsh	/home/mindul/self/wtool	real	wtool push-layer shell/zsh --registry=registry.example.com/wtool --dry-run
+wtool-refresh	zsh	/home/mindul/self/wtool	real	wtool refresh-downloads --dry-run
+wtool-repair	zsh	/home/mindul/self/wtool	real	wtool repair terminal/tmux --dry-run | head -8
+wtool-status	zsh	/home/mindul/self/wtool	real	wtool status | head -6
+wtool-status-project	zsh	/home/mindul/self/wtool	real	wtool status terminal/tmux | head -12
+wtool-sudo-bootstrap	zsh	/home/mindul/self/wtool	real	wtool sudo-bootstrap --dry-run | head -8
+wtool-sudo-install	zsh	/home/mindul/self/wtool	real	wtool sudo-install os/ubuntu --dry-run | head -8
+wtool-sudo-uninstall	zsh	/home/mindul/self/wtool	real	wtool sudo-uninstall os/ubuntu
+wtool-table	zsh	/home/mindul/self/wtool	real	wtool | head -8
+wtool-uninstall	zsh	/home/mindul/self/wtool	demo	wtool uninstall terminal/tmux
+wtool-unpack	zsh	/home/mindul/self/wtool	real	wtool unpack-release tools/musl-bins/bat --dry-run
+wtool-unpack-layer	zsh	/home/mindul/self/wtool	real	wtool unpack-layer shell/zsh --dry-run
+wtool-validate	zsh	/home/mindul/self/wtool	real	wtool validate terminal/tmux
+wtool-version	zsh	/home/mindul/self/wtool	real	wtool version
+xh-version	zsh	/home/mindul/self/wtool	real	xh --version
+yazi-version	zsh	/home/mindul/self/wtool	real	yazi --version
+yq-version	zsh	/home/mindul/self/wtool	real	yq --version
+z	zsh	/home/mindul/self/wtool	real	z wtool && pwd
+zellij-version	zsh	/home/mindul/self/wtool	real	zellij --version
+zi	zsh	/home/mindul/self/wtool	real	whence -w zi
+zoxide-version	zsh	/home/mindul/self/wtool	real	zoxide --version
+zsh-version	zsh	/home/mindul/self/wtool	real	zsh --version
