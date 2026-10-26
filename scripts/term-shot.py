@@ -19,6 +19,8 @@ DEF_FG, FACEBG, FONT = '#dcdfe4', '#282c34', 'DejaVu Sans Mono 14'
 
 SGR = re.compile(r'\x1b\[([0-9;]*)m')
 CSI = re.compile(r'\x1b\[[0-9;?]*[A-Za-z]|\x1b\][^\x07]*(\x07|\x1b\\)|\x1b[=>]')
+# 非 SGR 的 CSI（`m` 结尾的是颜色，必须留给 parse）
+CSI_NON_SGR = re.compile(r'\x1b\[[0-9;?]*[A-Za-ln-z]|\x1b\][^\x07]*(\x07|\x1b\\)|\x1b[=>]')
 
 
 def parse(text):
@@ -86,7 +88,11 @@ def main():
     # script(1) 会在首尾各加一行（"Script started/done ..."），那不是命令输出，丢掉
     raw = '\n'.join(l for l in raw.split('\n')
                      if not l.lstrip().startswith(('Script started on', 'Script done on')))
-    markup = to_pango(parse(CSI.sub('', raw)))
+    # ⚠️ 顺序错了就永远灰的（2026-10-26 用户报"截图没颜色"）：
+    #    `CSI.sub('', raw)` 会把 SGR（`\x1b[…m`，也就是**颜色**）一起删掉，
+    #    再交给 parse 就一个颜色都不剩。这里只清**非 SGR** 的控制序列。
+    raw = CSI_NON_SGR.sub('', raw)
+    markup = to_pango(parse(raw))
     if not markup.strip():
         sys.exit('输入是空的')
     os.makedirs(os.path.dirname(dst) or '.', exist_ok=True)
