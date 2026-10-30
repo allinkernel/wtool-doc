@@ -116,18 +116,15 @@ cmm
 
 **功能**：跳到某个项目；`-<编号>` 直接跳到某个 gerrit change 所属的项目。
 
+**常用**：
 ```sh
-cdd terminal/tmux            # 按项目名 / 路径跳
-cdd -1                      # 跳到 change 1 所属的项目
-cdd no-such-project          # 报错并提示怎么列项目
+cdd platform/system/core    # 按项目名/路径跳
+cdd -2                      # 跳到 change 2 所属的项目
+cdd no-such-project         # 找不到时给出提示
 ```
 
-**提示**：change 所属项目不在当前清单里时会报错（这时先 `repo sync`）。
-
-![cdd](img/cdd.png)
-![cdd -N](img/cdd-dash.png)
-![cdd 失败](img/cdd-fail.png)
-![cdd -N 失败](img/cdd-dash-fail.png)
+![cdd 按 change 跳](img/cdd-demo.png)
+![cdd 找不到项目](img/cdd-demo-fail.png)
 
 ### cdd_path
 
