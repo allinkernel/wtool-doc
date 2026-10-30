@@ -233,16 +233,18 @@ ggcp -y 1 3         # 全都打，不逐笔确认
 
 ### ggrvt
 
-**功能**：把本地历史里同 Change-Id 的提交 revert 掉。只改本地。
+**功能**：把本地历史里同 Change-Id 的提交 revert 掉（只改本地）。
 
+**常用**：
 ```sh
-ggrvt 2                   # 回退 change 2 那一笔
+ggrvt 2             # 回退 change 2 打上的那一笔
+ggcp 2/2            # 然后就能打新 patchset
 ```
 
-**提示**：不接受 patchset，`ggrvt 2/2` 会报错；本地没打过这笔就报「本地历史里没有」。
+本地没有该 Change-Id 时会提示先 `ggcp`。
 
-![ggrvt 成功](img/ggrvt-ok.png)
-![ggrvt 失败](img/ggrvt-fail.png)
+![ggrvt 成功](img/ggrvt-demo-ok.png)
+![ggrvt 本地没有该 change](img/ggrvt-demo-fail.png)
 
 ### gchk
 
