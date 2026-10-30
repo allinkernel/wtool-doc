@@ -18,7 +18,7 @@ cs                      # 任意子目录里都能跳回工作区根
 cs && pwd               # 确认落到哪
 ```
 
-![cs](img/cs.png)
+![cs](img/cs-demo.png)
 
 ### css
 
