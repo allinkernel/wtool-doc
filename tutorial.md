@@ -258,14 +258,15 @@ gchk 1                    # 退出码：0 已 merged，1 还没，2 查不到
 
 ### gq
 
-**功能**：列出一个 change 的摘要（编号 / 状态 / 项目 / 主题）。
+**功能**：查一个 change 的摘要（编号 / 状态 / 项目 / 主题）。
 
+**常用**：
 ```sh
-gq 1
-gq 1 -r                   # 输出原始 JSON
+gq 2                # 查 change 2
+gq 2 -r             # 输出原始 JSON
 ```
 
-![gq](img/gq.png)
+![gq](img/gq-demo.png)
 
 ### gpush
 
