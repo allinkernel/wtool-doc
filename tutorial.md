@@ -215,22 +215,21 @@ export WTOOL_GERRIT_HOST=user@host:29418
 
 ### ggcp
 
-**功能**：把 gerrit 上的 patchset 抓回本地，切到对应项目，cherry-pick。
+**功能**：把 gerrit 上的 patchset 打到本地（自动切到对应项目再 cherry-pick）。
 
+**常用**：
 ```sh
-ggcp 1                    # 打 change 1 的最新 patchset
-ggcp 2/2                  # 指定 patchset 2
-ggcp 1,3                  # 一次打多笔（逗号或空格分隔）
-ggcp -y 1 3               # 全都打，不再逐笔问
+ggcp 2              # 打 change 2 的最新 patchset
+ggcp 2/2            # 指定 patchset 2
+ggcp 1,3            # 一次打多笔
+ggcp -y 1 3         # 全都打，不逐笔确认
 ```
 
-**提示**：同 Change-Id 已在本地历史时会拦下来 —— 先 `ggrvt <编号>` 回退，再打新 patchset。
-结果表按代码本身不上色（上了 ANSI 会破坏中文对齐），提示符是彩色的就够了。
+同 Change-Id 已在本地历史时会拦下，并提示先 `ggrvt` 回退。
 
-![ggcp 成功](img/ggcp-ok.png)
-![ggcp 失败](img/ggcp-fail.png)
-![ggcp 同 Change-Id 被拦](img/ggcp-same-change.png)
-![ggcp 多笔](img/ggcp-multi.png)
+![ggcp 成功](img/ggcp-demo-ok.png)
+![ggcp 同 Change-Id 被拦](img/ggcp-demo-same.png)
+![ggcp 查不到 change](img/ggcp-demo-fail.png)
 
 ### ggrvt
 
