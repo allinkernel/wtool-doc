@@ -180,7 +180,7 @@ wninja                  # 在 Android 源码树里增量编译
 gb
 ```
 
-![gb](img/gb.png)
+![gb](img/gb-demo.png)
 
 ### gpun
 
