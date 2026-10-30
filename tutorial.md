@@ -248,13 +248,14 @@ ggcp 2/2            # 然后就能打新 patchset
 
 ### gchk
 
-**功能**：查一个 change 有没有 +2、有没有 merged。
+**功能**：查一个 change 有没有 +2 / 有没有合入（退出码：0 已合入，1 未合入，2 查不到）。
 
+**常用**：
 ```sh
-gchk 1                    # 退出码：0 已 merged，1 还没，2 查不到
+gchk 2              # 查 change 2
 ```
 
-![gchk](img/gchk.png)
+![gchk](img/gchk-demo.png)
 
 ### gq
 
