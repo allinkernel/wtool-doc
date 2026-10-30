@@ -70,7 +70,7 @@ cnp                     # 如 tools/git-repo-sh-tools
 cnn                     # 如 allinkernel/wtool-repo.git
 ```
 
-![cnn](img/cnn.png)
+![cnn](img/cnn-demo.png)
 
 ### cnb
 
