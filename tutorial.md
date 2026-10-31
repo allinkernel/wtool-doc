@@ -181,13 +181,27 @@ gb
 
 ### gpun
 
-**功能**：`git pull <remote> <branch> --depth=N`（浅拉，省时间）。
+**功能**：用 `gb` 给出的 `git pull <remote> <branch>` 把历史补下来（浅克隆变完整 / 只取最近 N 条）。
 
+**用法**：`gpun [<深度> | --depth=<深度>]`
+
+| 参数 | 说明 |
+|---|---|
+| 不带参数 | 执行 `git pull <remote> <branch> --unshallow`，把浅克隆补成完整历史 |
+| `-30` | 换成 `--depth=30`，只取最近 30 条 |
+| `--depth=30` | 同上（等价写法） |
+
+**常用**：
 ```sh
-gpun -30                # 拉最近 30 个提交
+gpun              # 补全历史（浅克隆 → 完整）
+gpun -30          # 只要最近 30 条
+gpun --depth=100  # 最近 100 条
 ```
 
-![gpun](img/gpun.png)
+**注意**：仓库本来就不是浅克隆时，`gpun` 会报 `--unshallow on a complete repository does not make sense` —— 这是 git 的正常拒绝，换 `gpun -30` 即可。
+
+![gpun -30](img/gpun-demo.png)
+![gpun 参数不对时的用法提示](img/gpun-demo-usage.png)
 
 ### gbb
 
