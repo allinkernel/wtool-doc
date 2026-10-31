@@ -22,45 +22,50 @@ cs && pwd               # 确认落到哪
 
 ### css
 
-**功能**：打印 repo 工作区根目录，不跳转。
+**功能**：打印 repo 工作区的根目录（**不跳转**）。
 
+**常用**：
 ```sh
-css
+css                  # → /home/me/demo/ws
+cd "$(css)"          # 真要跳过去就套一层
 ```
 
-![css](img/css.png)
+![css](img/css-demo.png)
 
 ### ct
 
-**功能**：跳到当前项目（最近的 `.git`）根目录。
+**功能**：跳到当前 git 仓库的根目录（安静，无输出）。
 
+**常用**：
 ```sh
-ct                      # 在 tools/x/src 里跳到 tools/x
+ct && pwd            # 在子目录里跳回仓库根
 ```
 
-![ct](img/ct.png)
+![ct](img/ct-demo.png)
 
 ### ctt
 
-**功能**：打印当前项目根目录，不跳转。
+**功能**：打印当前 git 仓库的根目录（**不跳转**）。
 
+**常用**：
 ```sh
-ctt
+ctt                  # → /home/me/demo/ws/platform/build/make
 ```
 
-![ctt](img/ctt.png)
+![ctt](img/ctt-demo.png)
 
 ### cnp
 
-**功能**：打印当前项目在清单里的相对路径。
+**功能**：打印当前目录所属项目在清单里的路径。
 
+**常用**：
 ```sh
-cnp                     # 如 tools/git-repo-sh-tools
+cnp                  # → platform/build/make
 ```
 
-**提示**：传参数会报错 —— 它只认"当前目录属于哪个项目"。
+**注意**：要在项目目录里用（工作区根目录下会提示"不在 repo 工作区的某个 git 仓库里"）。
 
-![cnp](img/cnp.png)
+![cnp](img/cnp-demo.png)
 
 ### cnn
 
@@ -74,43 +79,47 @@ cnn                     # 如 allinkernel/wtool-repo.git
 
 ### cnb
 
-**功能**：打印清单里当前项目的分支。
+**功能**：打印清单里给当前项目声明的分支。
 
+**常用**：
 ```sh
-cnb                     # 如 main
+cnb                  # → master
 ```
 
-![cnb](img/cnb.png)
+![cnb](img/cnb-demo.png)
 
 ### cnr
 
-**功能**：打印清单里当前项目的 remote 名。
+**功能**：打印清单里给当前项目声明的 remote 名。
 
+**常用**：
 ```sh
-cnr                     # 如 github
+cnr                  # → demo
 ```
 
-![cnr](img/cnr.png)
+![cnr](img/cnr-demo.png)
 
 ### cm
 
-**功能**：跳到 `.repo/manifests`。
+**功能**：跳到 `.repo/manifests` 目录（安静，无输出）。
 
+**常用**：
 ```sh
-cm && pwd
+cm && pwd            # 去改清单
 ```
 
-![cm](img/cm.png)
+![cm](img/cm-demo.png)
 
 ### cmm
 
-**功能**：打印 `.repo/manifests` 的路径，不跳转。
+**功能**：打印 `.repo/manifests` 的路径（**不跳转**）。
 
+**常用**：
 ```sh
-cmm
+cmm                  # → /home/me/demo/ws/.repo/manifests
 ```
 
-![cmm](img/cmm.png)
+![cmm](img/cmm-demo.png)
 
 ### cdd
 
