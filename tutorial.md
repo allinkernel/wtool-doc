@@ -226,21 +226,38 @@ export WTOOL_GERRIT_HOST=user@host:29418
 
 ### ggcp
 
-**功能**：把 gerrit 上的 patchset 打到本地（自动切到对应项目再 cherry-pick）。
+**功能**：把 gerrit 上的 patchset 打到本地。**按仓库分组并行**处理 —— 一次可以给多个仓库打多笔补丁。
+
+**用法**：`ggcp [-y|-n] [-p <patchset>] <编号|链接|Change-Id> ...`
+
+| 参数 | 说明 |
+|---|---|
+| `<编号>` / `1,2,3` / `1 2 3` | 一个或多个 change 编号，逗号或空格分隔（可混用） |
+| `<编号>/<ps>` | 指定 patchset，如 `1234/2`；等价于 `-p 2 1234` |
+| `-p <n>` | 打第 n 个 patchset |
+| `按链接` | `https://gerrit.company.com/c/proj/+/1234` 或 `#/c/1234`，自动取编号 |
+| `按 Change-Id` | `I1111…`（40 位）：查它对应的所有提交，打表后逐个问 |
+| `-y` | 全都打，不再逐笔确认 |
+| `-n` | 全都跳过，不问 |
 
 **常用**：
 ```sh
-ggcp 2              # 打 change 2 的最新 patchset
-ggcp 2/2            # 指定 patchset 2
-ggcp 1,3            # 一次打多笔
-ggcp -y 1 3         # 全都打，不逐笔确认
+ggcp 41 42 43 44 45 46 47 48 49 50   # 一次给 7 个仓库打 10 笔
+ggcp 41,42,43                        # 逗号写法
+ggcp 21/2                            # 指定 patchset 2
+ggcp -y 41 42                        # 不再逐笔确认
+ggcp I1111111111111111111111111111111111111111   # 按 Change-Id
 ```
 
-同 Change-Id 已在本地历史时会拦下，并提示先 `ggrvt` 回退。
+**注意**：
+- 同 Change-Id 已在本地历史时会拦下（先 `ggrvt <编号>` 回退，再打新 patchset）；
+- 结果表按代码本身不上色（上 ANSI 会破坏中文对齐），提示符是彩色的；
+- 每行一个 change；同一仓库的多笔会**合并成一次 fetch** 再逐个 cherry-pick。
 
-![ggcp 成功](img/ggcp-demo-ok.png)
-![ggcp 同 Change-Id 被拦](img/ggcp-demo-same.png)
-![ggcp 查不到 change](img/ggcp-demo-fail.png)
+![一次给 7 个仓库打 10 笔](img/ggcp-demo-multi.png)
+![单笔成功](img/ggcp-demo-ok.png)
+![同 Change-Id 被拦](img/ggcp-demo-same.png)
+![查不到 change](img/ggcp-demo-fail.png)
 
 ### ggrvt
 
