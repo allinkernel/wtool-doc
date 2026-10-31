@@ -268,14 +268,26 @@ gq 2 -r             # 输出原始 JSON
 
 ### gpush
 
-**功能**：把当前 HEAD 推到 `refs/for/<清单声明的分支>`。
+**功能**：把当前 HEAD 推到 `refs/for/<清单里声明的分支>`（送 gerrit 检视）。
 
+**用法**：`gpush [remote] [额外参数...]`
+
+| 参数 | 说明 |
+|---|---|
+| `remote` | 推到哪个 remote，默认 `polygerrit`；仓库没有它时报错并列出现有 remote |
+| 额外参数 | 原样透传给 `git push`（如 `-o skip-validation`、`-f`、`--no-thin`） |
+
+**常用**：
 ```sh
-gpush gerrit              # 推到 gerrit 的 refs/for/main（remote 名按仓库实际情况）
-gpush origin              # 换 remote
+gpush                             # 用默认 remote（polygerrit）
+gpush gerrit                      # 换成本仓库实际的 remote 名
+gpush gerrit -o skip-validation   # 额外参数透传
 ```
 
-![gpush](img/gpush.png)
+**注意**：目标分支取自清单（`cnb`），不是当前分支；提交里必须有 `Change-Id`，否则被 gerrit 拒绝。
+
+![gpush 成功](img/gpush-demo.png)
+![gpush 没传 remote，报错并列出现有 remote](img/gpush-demo-noarg.png)
 
 ### ggco
 
